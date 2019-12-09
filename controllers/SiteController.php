@@ -3,13 +3,12 @@
 namespace app\controllers;
 
 use app\models\Login;
-use app\models\search\CategorySearch;
 use app\models\Signup;
 use Yii;
-use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -59,7 +58,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Rejestracja przebiegła pomyślnie, teraz możesz się zalogować na swoje konto.');
 
-            return $this->redirect(Yii::$app->request->baseUrl . '/index.php' . '/site/index');
+            return $this->redirect(Url::to(['/site/index']));
         }
 
         return $this->renderAjax('signup', [

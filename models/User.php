@@ -12,7 +12,7 @@ use yii\web\IdentityInterface;
  *
  * @property int $id
  * @property string $username
- * @property string $email
+ * @property int $account_type
  * @property string $password_hash
  * @property int $created_at
  * @property int $modified_at
@@ -20,6 +20,9 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public const EMPLOYER = 1;
+    public const EMPLOYEE = 2;
+
     public static function tableName()
     {
         return '{{%user}}';
@@ -43,7 +46,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'username' => 'Nazwa użytkownika',
-            'email' => 'Adres email',
+            'account_type' => 'Typ konta',
             'password_hash' => 'Hasło',
             'created_at' => 'Utworzony',
             'updated_at' => 'Ostatnia modyfikacja',

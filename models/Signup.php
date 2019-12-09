@@ -2,24 +2,28 @@
 
 namespace app\models;
 
+use yii\base\Exception;
 use yii\base\Model;
 
 
 class Signup extends Model
 {
     public $username;
-    public $email;
+    public $account_type;
     public $password;
 
     public function rules()
     {
         return [
-            [['username', 'password'], 'required', 'message' => '{attribute} nie może pozostać bez wartości.'],
+            [['username', 'account_type', 'password'], 'required', 'message' => '{attribute} nie może pozostać bez wartości.'],
             [['username'], 'unique', 'targetClass' => User::class, 'message' => 'Podana nazwa użytkownika jest już zajętą.'],
-            [['email'], 'unique', 'targetClass' => User::class, 'message' => 'Podany adres email jest już zajęty.'],
+
+            [['account_type'], 'integer'],
+            [['account_type'], 'filter', 'filter' => 'intval'],
+
             [['username'], 'string', 'max' => 50],
-            [['username', 'email'], 'trim'],
-            [['email'], 'email', 'message' => 'Podany adres email jest niepoprawny.'],
+            [['username'], 'trim'],
+
             [['password'], 'string', 'min' => 6, 'message' => '{attribute} musi zawierać przynajmniej 6 znaków.'],
             [['password'], 'string', 'max' => 255, 'message' => '{attribute} może zawierać 255 znaków.'],
         ];
@@ -32,16 +36,16 @@ class Signup extends Model
     {
         return [
             'username' => 'Nazwa użytkownika',
-            'email' => 'Adres email',
+            'account_type' => 'Typ konta',
             'password' => 'Hasło',
         ];
     }
 
     /**
-     * Signs user up.
+     * Signs user up
      *
-     * @return User|null
-     * @throws \yii\base\Exception
+     * @return bool|null
+     * @throws Exception
      */
     public function signup()
     {
@@ -51,9 +55,25 @@ class Signup extends Model
 
         $user = new User();
         $user->username = $this->username;
-        $user->email = $this->email;
+        $user->account_type = $this->account_type;
         $user->setPassword($this->password);
 
-        return $user->save() ? $user : null;
+        if ($user->save()){
+            if ($user->account_type === User::EMPLOYER) {
+                $profile = new EmployerProfile(['scenario' => 'signup']);
+            } elseif ($user->account_type === User::EMPLOYEE) {
+                $profile = new EmployeeProfile(['scenario' => 'signup']);
+            } else {
+                throw new Exception('Account type not allowed');
+            }
+
+            $profile->id_user = $user->id;
+
+            if ($profile->save()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -19,7 +19,7 @@ use yii\widgets\Pjax;
         ]); ?>
 
         <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'account_type')->radioList([1 => 'Pracodawca', 2 => 'Pracownik'], ['inline' => true]) ?>
         <?= $form->field($model, 'password')->passwordInput(['autocomplete' => 'new-password']) ?>
 
         <hr>

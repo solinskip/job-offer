@@ -9,6 +9,8 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'sourceLanguage' => 'pl',
+    'language' => 'pl',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -51,12 +53,8 @@ $config = [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'rules' => [
-//                '' => 'site/index',
-//                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
-//            ],
-
+            'showScriptName' => false,
+            'baseUrl' => '/'
         ],
         'formatter' => [
             'class' => 'yii\i18n\Formatter',
