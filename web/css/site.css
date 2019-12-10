@@ -140,7 +140,7 @@ a.desc:after {
 
 .modal-sub:hover {
     background-color: #343a40;
-    color: #f8f9fa;
+    color: #f8f9fa !important;
 }
 
 .btn-transactions {

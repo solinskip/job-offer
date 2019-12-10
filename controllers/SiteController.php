@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Login;
+use app\models\ResetPassword;
 use app\models\Signup;
 use Yii;
 use yii\db\ActiveRecord;
@@ -83,6 +84,21 @@ class SiteController extends Controller
         }
 
         return $this->renderAjax('login', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionResetPassword()
+    {
+        $model = new ResetPassword();
+
+        if ($model->load(Yii::$app->request->post()) && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'Zmiana hasa przebiegła pomyślnie.');
+
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+
+        return $this->renderAjax('reset-password', [
             'model' => $model,
         ]);
     }

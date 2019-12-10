@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\models\User;
 use app\widgets\Alert;
 use kartik\growl\Growl;
 use yii\bootstrap\Modal;
@@ -73,6 +74,14 @@ AppAsset::register($this);
                                             'data-toggle' => "collapse", 'data-target' => '.navbar-collapse.show'
                                         ],
                                         'visible' => Yii::$app->user->isGuest ? true : false
+                                    ],
+                                    [
+                                        'label' => '<i class="fas fa-user">&nbsp;</i>Profil', 'url' => User::urlProfile(), 'encode' => false,
+                                        'linkOptions' => [
+                                            'class' => 'text-light',
+                                            'data-method' => 'post'
+                                        ],
+                                        'visible' => Yii::$app->user->isGuest ? false : true
                                     ],
                                     [
                                         'label' => '<i class="fas fa-sign-out-alt">&nbsp;</i>Wyloguj się', 'url' => ['/site/logout'], 'encode' => false,

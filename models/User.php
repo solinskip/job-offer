@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
 /**
@@ -12,14 +13,18 @@ use yii\web\IdentityInterface;
  *
  * @property int $id
  * @property string $username
- * @property int $account_type
+ * @property int $account_type, 0 => administrator, 1 => employer, 2 => employee
  * @property string $password_hash
  * @property int $created_at
  * @property int $modified_at
  * @property int $logged_at
+ *
+ * @property EmployerProfile $employerProfile
+
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public const ADMINISTRATOR = 0;
     public const EMPLOYER = 1;
     public const EMPLOYEE = 2;
 
@@ -55,12 +60,51 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEmployerProfile()
+    {
+        return $this->hasOne(EmployerProfile::class, ['id_user' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEmployeeProfile()
+    {
+        return $this->hasOne(EmployeeProfile::class, ['id_user' => 'id']);
+    }
+
+    /**
+     * Return url to profile, depends on current login user is employer or employee
+     *
+     * @return bool|string
+     * @throws \yii\base\Exception
+     */
+    public static function urlProfile()
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (Yii::$app->user->identity->attributes['account_type'] === self::EMPLOYER) {
+            return Url::to(['/employer/index']);
+        }
+        if (Yii::$app->user->identity->attributes['account_type'] === self::EMPLOYEE) {
+            return Url::to(['/employee/index']);
+        }
+
+        throw new \yii\base\Exception('Account type not allowed');
+    }
+
+    /**
      * FInd user by username
      *
      * @param $username
      * @return User|null
      */
-    public static function findByUsername($username) {
+    public static function findByUsername($username)
+    {
         return static::findOne(['username' => $username]);
     }
 
