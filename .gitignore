@@ -1,8 +1,6 @@
 # phpstorm project files
 .idea
 
-images/profile_images/.
-
 # netbeans project files
 nbproject
 
@@ -36,3 +34,6 @@ tests/_support/_generated
 
 #Assets folder
 assets/*
+
+# local images storage
+/images/profile_images/
