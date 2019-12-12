@@ -116,6 +116,42 @@ class SiteController extends Controller
     }
 
     /**
+     * Allow to download local file
+     *
+     * @return \yii\console\Response|Response
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionStorageDownload()
+    {
+        $requestedPath = urldecode(Yii::$app->request->getUrl());
+        $path = realpath(Yii::getAlias('@images') . '/' . $requestedPath);
+
+        if (file_exists($path)) {
+            return Yii::$app->response->sendFile($path);
+        }
+
+//        Yii::$app->session->setFlash('danger', 'Plik, który próbujesz pobrać nie istnieje.');
+
+        return $this->redirect(['/site/index']);
+    }
+
+    /**
+     * Deletes the indicated files from local storage
+     *
+     * @return bool
+     */
+    public function actionDeleteFile()
+    {
+        ['key' => $key, 'dir' => $dir, 'fileName' => $fileName] = Yii::$app->request->post();
+
+        $path = Url::to('@images/') . $dir . '/' . $key . '/' . $fileName;
+        if (file_exists($path) && unlink($path)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Display error site when user operate on non-existent data or something goes wrong
      *
      * @return string

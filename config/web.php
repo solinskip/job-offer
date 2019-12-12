@@ -54,7 +54,10 @@ $config = [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'baseUrl' => '/'
+            'baseUrl' => '/',
+            'rules' => [
+                'profile_images/<path:.*>' => 'site/storage-download/'
+            ]
         ],
         'formatter' => [
             'class' => 'yii\i18n\Formatter',

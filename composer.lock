@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "401b4460629701437283f3fafa97d7a8",
+    "content-hash": "17744c3682513c6e52c2f554ae2d9c41",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2822,16 +2822,16 @@
         },
         {
             "name": "mootensai/yii2-enhanced-gii",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mootensai/yii2-enhanced-gii.git",
-                "reference": "b1a5c78656c0fc522b4f050812320fa4488f14ba"
+                "reference": "d08212c974bc4cc4a74be597c4c6a33efe80b3b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mootensai/yii2-enhanced-gii/zipball/b1a5c78656c0fc522b4f050812320fa4488f14ba",
-                "reference": "b1a5c78656c0fc522b4f050812320fa4488f14ba",
+                "url": "https://api.github.com/repos/mootensai/yii2-enhanced-gii/zipball/d08212c974bc4cc4a74be597c4c6a33efe80b3b3",
+                "reference": "d08212c974bc4cc4a74be597c4c6a33efe80b3b3",
                 "shasum": ""
             },
             "require": {
@@ -2877,7 +2877,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2019-08-08T17:57:06+00:00"
+            "time": "2016-08-20T03:42:09+00:00"
         },
         {
             "name": "mootensai/yii2-jsblock",
@@ -4415,8 +4415,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "yiisoft/yii2-bootstrap": 20,
-        "bower-asset/bootstrap": 15,
-        "mootensai/yii2-enhanced-gii": 20
+        "bower-asset/bootstrap": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,

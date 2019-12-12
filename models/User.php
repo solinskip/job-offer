@@ -20,6 +20,7 @@ use yii\web\IdentityInterface;
  * @property int $logged_at
  *
  * @property EmployerProfile $employerProfile
+ * @property EmployeeProfile $employeeProfile
 
  */
 class User extends ActiveRecord implements IdentityInterface

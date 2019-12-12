@@ -12,6 +12,8 @@ Yii::setAlias('@app', dirname(__DIR__ . '/../../'));
 Yii::setAlias('@webroot', dirname(__DIR__ . '/../../'));
 Yii::setAlias('@anyname', realpath(dirname(__FILE__)));
 
+Yii::setAlias('@images', realpath('/var/www/job-offer/images'));
+
 $config = require __DIR__ . '/../config/web.php';
 
 (new yii\web\Application($config))->run();

@@ -2,12 +2,11 @@
 
 namespace app\controllers;
 
-use app\models\search\EmployerProfileSearch;
-use Yii;
 use app\models\EmployerProfile;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * EmployerController implements the CRUD actions for EmployerProfile model.
@@ -40,68 +39,33 @@ class EmployerController extends Controller
     }
 
     /**
-     * Lists all EmployerProfile models.
-     * @return mixed
+     * Display a current login employer profile
+     *
+     * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new EmployerProfileSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'profile' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single EmployerProfile model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        $model = $this->findModel($id);
-        return $this->render('view', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Creates a new EmployerProfile model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new EmployerProfile();
-
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('index');
     }
 
     /**
      * Updates an existing EmployerProfile model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     *
+     * @return string|\yii\web\Response
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $model = $this->findModel($id);
+        $modelProfile = Yii::$app->user->identity->employerProfile;
+        $modelProfile->scenario = 'update';
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($modelProfile->load(Yii::$app->request->post()) && $modelProfile->save() && $modelProfile->upload()) {
+            return $this->redirect(['index']);
         }
+
+        return $this->render('update', [
+            'model' => $modelProfile,
+        ]);
     }
 
     /**
@@ -112,12 +76,12 @@ class EmployerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->deleteWithRelated();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    
+
     /**
      * Finds the EmployerProfile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -129,8 +93,8 @@ class EmployerController extends Controller
     {
         if (($model = EmployerProfile::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

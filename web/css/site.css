@@ -65,40 +65,6 @@ a.desc:after {
     content: /*"\e114"*/ "\e152";
 }
 
-.sort-numerical a.asc:after {
-    content: "\e153";
-}
-
-.sort-numerical a.desc:after {
-    content: "\e154";
-}
-
-.sort-ordinal a.asc:after {
-    content: "\e155";
-}
-
-.sort-ordinal a.desc:after {
-    content: "\e156";
-}
-
-.grid-view th {
-    white-space: nowrap;
-}
-
-.hint-block {
-    display: block;
-    margin-top: 5px;
-    color: #999;
-}
-
-.error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
-}
-
 /* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
     padding: 15px;
@@ -224,100 +190,22 @@ li.first.disabled, li.last.disabled {
     margin: auto;
 }
 
-.category-list {
-    flex: 100% !important;
-    max-width: 100% !important;
-}
-
-h1 {
-    margin-left: -10px !important;
-}
-
-.month-statistic-grid table {
-    background-color: #66BB6A;
-    color: #fff;
-}
-
-.month-statistic-grid table thead {
-    display: none;
-}
-
-.month-statistic-grid table td {
-    margin-top: -10px !important;
-    padding: 5px 15px 8px 15px;
-    border: none;
-    border-top: 1px solid #ffffff;
-    line-height: 33px;
-}
-
-.subcategories-expand-grid table {
-    background-color: #66BB6A !important;
-    color: #fff;
-}
-
-.subcategories-expand-grid table tr td {
-    border: none;
-}
-
-.subcategories-expand-grid table {
-    margin: 0;
-}
-
-.subcategories-expand-grid table td {
-    padding: 1px;
-    line-height: 28px !important;
-}
-
-.kv-expand-detail-row {
-    border-top: 2px solid #66BB6A !important;
-}
-
-.statistic-text {
-    padding-top: 4px;
-    display: block;
-    font-size:  22px;
-    font-weight: 500;
-    line-height: 1.2;
-}
-
-.group-odd {
-    background-color: #616366;
-    color: #ffffff;
-    font-size: 17px;
-    font-weight: 500;
-}
-
-.group-even {
-    background-color: #919396;
-    color: #ffffff;
-    font-size: 17px;
-    font-weight: 500;
-}
-
-.kv-drp-dropdown input {
-    padding-right: 10px !important;
-    padding-left: 10px !important;
-}
-
-.user-label, .monthly-expenses-label, .last-upload-label {
-    color: #fff;
-    width: 115px;
-    text-align: center;
-}
-
-.user-label {
-    background-color: #9CCC65;
-}
-
-.monthly-expenses-label {
-    background-color: #29B6F6;
-}
-
-.last-upload-label {
-    background-color: #78909C;
-}
-
 .select2-selection__clear {
     top: 3px !important;
     right: 30px !important;
+}
+
+.control-label {
+    padding-top: 10px;
+}
+
+.kv-file-content {
+    height: auto !important;
+}
+
+.profile-image {
+    max-width: 100%;
+    padding: 30px;
+    border: 1px solid #343a40;
+    border-radius: 25px;
 }

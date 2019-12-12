@@ -41,7 +41,7 @@
     "kartik-v/yii2-editable": "*",
     "kartik-v/yii2-detail-view": "*",
     "facebook/webdriver": "*",
-    "mootensai/yii2-enhanced-gii": "dev-master"
+    "mootensai/yii2-enhanced-gii": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "*",

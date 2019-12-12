@@ -35,7 +35,6 @@ use app\models\EmployerProfile;
      * Creates data provider instance with search query applied
      *
      * @param array $params
-     *
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -43,14 +42,12 @@ use app\models\EmployerProfile;
         $query = EmployerProfile::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query
         ]);
 
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
@@ -58,7 +55,7 @@ use app\models\EmployerProfile;
             'id' => $this->id,
             'id_user' => $this->id_user,
             'phone' => $this->phone,
-            'fax' => $this->fax,
+            'fax' => $this->fax
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
