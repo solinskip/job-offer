@@ -1,6 +1,8 @@
 # phpstorm project files
 .idea
 
+images/profile_images/.
+
 # netbeans project files
 nbproject
 
