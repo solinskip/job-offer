@@ -78,7 +78,7 @@ $config = [
         'datecontrol' => [
             'class' => 'kartik\datecontrol\Module',
             'displaySettings' => [
-                Module::FORMAT_DATE => 'php:d.m.Y',
+                Module::FORMAT_DATE => 'php:d-m-Y',
             ],
             'saveSettings' => [
                 Module::FORMAT_DATE => 'php:Y-m-d',

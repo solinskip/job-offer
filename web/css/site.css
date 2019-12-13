@@ -209,3 +209,67 @@ li.first.disabled, li.last.disabled {
     border: 1px solid #343a40;
     border-radius: 25px;
 }
+
+.w-95 {
+    width: 95% !important;
+}
+
+.kv-file-content {
+    width: 100% !important;
+}
+
+.datepicker {
+    margin: 0 !important;
+    padding: 5px !important;
+}
+
+.glyphicon {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.glyphicon-pencil::before {
+    content: "\f044";
+}
+
+.glyphicon-remove::before {
+    content: "\f2ed";
+}
+
+.glyphicon-calendar::before {
+    content: "\f073";
+}
+
+.input-group-addon:first-child,
+.input-group-addon:nth-child(2) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group-addon:last-child,
+.input-group-addon:nth-child(2) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group-addon {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.input-group-addon > i {
+    font-style: normal;
+}

@@ -88,6 +88,9 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
+        if (Yii::$app->user->identity->attributes['account_type'] === self::ADMINISTRATOR) {
+            return Url::to(['/admin/index']);
+        }
         if (Yii::$app->user->identity->attributes['account_type'] === self::EMPLOYER) {
             return Url::to(['/employer/index']);
         }

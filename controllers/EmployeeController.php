@@ -10,9 +10,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
- * EmployerController implements the CRUD actions for EmployerProfile model.
+ * EmployeeController implements the CRUD actions for EmployerProfile model.
  */
-class EmployerController extends Controller
+class EmployeeController extends Controller
 {
     public function behaviors()
     {
@@ -58,7 +58,7 @@ class EmployerController extends Controller
     public function actionUpdate()
     {
         /** @var EmployerProfile $modelProfile */
-        $modelProfile = Yii::$app->user->identity->employerProfile;
+        $modelProfile = Yii::$app->user->identity->employeeProfile;
         $modelProfile->scenario = 'update';
 
         if ($modelProfile->load(Yii::$app->request->post()) && $modelProfile->save() && $modelProfile->upload()) {

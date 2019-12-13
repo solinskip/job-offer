@@ -1,6 +1,7 @@
-<?php
+<?
 
 use app\models\Upload;
+use kartik\datecontrol\DateControl;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 use yii\helpers\Html;
@@ -29,10 +30,10 @@ use yii\helpers\Url;
                     'initialPreviewAsData' => $file ? true : false,
                     'allowedFileExtensions' => ['jpg'],
                     'dropZoneEnabled' => false,
+                    'frameClass' => 'krajee-default w-95',
                     'showClose' => false,
                     'showCaption' => false,
                     'showRemove' => false,
-                    'frameClass' => 'krajee-default w-95',
                     'showUpload' => false,
                     'browseClass' => 'btn btn-primary btn-block',
                     'overwriteInitial' => true,
@@ -48,15 +49,22 @@ use yii\helpers\Url;
             ]) ?>
         </div>
         <div class="col-md-8">
-            <?= $form->field($model, 'name', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Nazwa firmy']) ?>
-            <?= $form->field($model, 'address', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Adres']) ?>
-            <?= $form->field($model, 'industry', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Przedsiębiorstwo']) ?>
+            <div class="row">
+                <?= $form->field($model, 'name', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Imię']) ?>
+                <?= $form->field($model, 'surname', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Nazwisko']) ?>
+                <?= $form->field($model, 'birth_date', ['options' => ['class' => 'col-md-12']])->widget(DateControl::class, [
+                    'saveFormat' => 'php:Y-m-d'
+                ]) ?>
+                <?= $form->field($model, 'phone', ['options' => ['class' => 'col-md-6']])->textInput(['placeholder' => 'Telefon kom.']) ?>
+                <?= $form->field($model, 'email', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'placeholder' => 'Email']) ?>
+            </div>
         </div>
 
-        <?= $form->field($model, 'phone', ['options' => ['class' => 'col-md-4']])->textInput(['placeholder' => 'Telefon kom.']) ?>
-        <?= $form->field($model, 'email', ['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true, 'placeholder' => 'Email']) ?>
-        <?= $form->field($model, 'fax', ['options' => ['class' => 'col-md-4']])->textInput(['placeholder' => 'Fax']) ?>
-        <?= $form->field($model, 'information', ['options' => ['class' => 'col-md-12']])->textarea(['rows' => 6]) ?>
+
+        <?= $form->field($model, 'experience', ['options' => ['class' => 'col-md-12']])->textarea(['rows' => 4]) ?>
+        <?= $form->field($model, 'education', ['options' => ['class' => 'col-md-12']])->textarea(['rows' => 4]) ?>
+        <?= $form->field($model, 'courses', ['options' => ['class' => 'col-md-12']])->textarea(['rows' => 4]) ?>
+        <?= $form->field($model, 'information', ['options' => ['class' => 'col-md-12']])->textarea(['rows' => 4]) ?>
     </div>
 
     <hr>
