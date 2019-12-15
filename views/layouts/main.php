@@ -32,7 +32,7 @@ AppAsset::register($this);
 <? $this->beginBody() ?>
 
 <div class="wrap">
-    <div class="position-fixed w-100" style="z-index: 1080">
+    <div class="position-fixed w-100" style="z-index: 1050">
         <div class="hover-nav sticky-top">
             <div class="container-fluid">
                 <div class="align-items-stretch col-12 px-0">
@@ -60,7 +60,7 @@ AppAsset::register($this);
                                             'data-toggle' => "collapse",
                                             'data-target' => '.navbar-collapse.show'
                                         ],
-                                        'visible' => Yii::$app->user->isGuest ? true : false
+                                        'visible' => Yii::$app->user->isGuest
                                     ],
                                     [
                                         'label' => '<i class="fas fa-sign-in-alt">&nbsp;</i>Login', 'url' => false, 'encode' => false,
@@ -73,7 +73,15 @@ AppAsset::register($this);
                                             'modaltitle' => 'Login',
                                             'data-toggle' => "collapse", 'data-target' => '.navbar-collapse.show'
                                         ],
-                                        'visible' => Yii::$app->user->isGuest ? true : false
+                                        'visible' => Yii::$app->user->isGuest
+                                    ],
+                                    [
+                                        'label' => '<i class="fas fa-bullhorn"></i>&nbsp;</i>Ogłoszenia', 'url' => ['announcement/index'], 'encode' => false,
+                                        'linkOptions' => [
+                                            'class' => 'text-light',
+                                            'data-method' => 'post'
+                                        ],
+                                        'visible' => !Yii::$app->user->isGuest
                                     ],
                                     [
                                         'label' => '<i class="fas fa-user">&nbsp;</i>Profil', 'url' => User::urlProfile(), 'encode' => false,
@@ -81,7 +89,7 @@ AppAsset::register($this);
                                             'class' => 'text-light',
                                             'data-method' => 'post'
                                         ],
-                                        'visible' => Yii::$app->user->isGuest ? false : true
+                                        'visible' => !Yii::$app->user->isGuest
                                     ],
                                     [
                                         'label' => '<i class="fas fa-sign-out-alt">&nbsp;</i>Wyloguj się', 'url' => ['/site/logout'], 'encode' => false,
@@ -89,7 +97,7 @@ AppAsset::register($this);
                                             'class' => 'text-light',
                                             'data-method' => 'post'
                                         ],
-                                        'visible' => Yii::$app->user->isGuest ? false : true
+                                        'visible' => !Yii::$app->user->isGuest
                                     ]
                                 ]
                             ]) ?>

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\EmployerProfile;
+use app\models\search\AnnouncementSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -46,7 +47,14 @@ class EmployerController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new AnnouncementSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // Display only those announcements that current logged user created
+        $dataProvider->query->andWhere(['created_by' => Yii::$app->user->id]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**

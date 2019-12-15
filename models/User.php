@@ -21,6 +21,7 @@ use yii\web\IdentityInterface;
  *
  * @property EmployerProfile $employerProfile
  * @property EmployeeProfile $employeeProfile
+ * @property bool $isEmployer
 
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -99,6 +100,15 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         throw new \yii\base\Exception('Account type not allowed');
+    }
+
+    /**
+     * Checks that current logged user is employer
+     *
+     * @return bool
+     */
+    public function getIsEmployer() {
+        return Yii::$app->user->identity->account_type === 1;
     }
 
     /**

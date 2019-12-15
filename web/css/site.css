@@ -228,11 +228,15 @@ li.first.disabled, li.last.disabled {
     font-weight: 900;
 }
 
+.glyphicon-eye-open::before {
+    content: '\f06e';
+}
 .glyphicon-pencil::before {
     content: "\f044";
 }
 
-.glyphicon-remove::before {
+.glyphicon-remove::before,
+.glyphicon-trash::before {
     content: "\f2ed";
 }
 
@@ -240,19 +244,32 @@ li.first.disabled, li.last.disabled {
     content: "\f073";
 }
 
-.input-group-addon:first-child,
-.input-group-addon:nth-child(2) {
+.glyphicon-forward::before {
+    content: "\f04e";
+}
+
+.glyphicon-backward::before {
+    content: "\f04a";
+}
+
+.employer-profile-form .input-group-addon:first-child,
+.employee-profile-form .input-group-addon:first-child,
+.employer-profile-form.input-group-addon:nth-child(2),
+.employee-profile-form.input-group-addon:nth-child(2) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.input-group-addon:last-child,
-.input-group-addon:nth-child(2) {
+.employer-profile-form .input-group-addon:last-child,
+.employee-profile-form .input-group-addon:last-child,
+.employer-profile-form .input-group-addon:nth-child(2),
+.employee-profile-form .input-group-addon:nth-child(2) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.input-group-addon {
+.employer-profile-form .input-group-addon,
+.employee-profile-form .input-group-addon {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
@@ -270,6 +287,17 @@ li.first.disabled, li.last.disabled {
     border-radius: .25rem;
 }
 
-.input-group-addon > i {
+.title-announcement {
+    font-size: 25px;
+}
+
+.company-name-announcement {
+    font-size: 20px;
+}
+i {
     font-style: normal;
+}
+
+.form-announcement-search .kv-field-separator {
+    padding-top: 5px;
 }

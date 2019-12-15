@@ -5,8 +5,10 @@
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+use app\models\Announcement;
 use app\models\EmployerProfile;
 use app\models\Upload;
+use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -45,6 +47,8 @@ $this->title = 'Profil pracodawcy';
                     <span class="display-4"><?= Yii::$app->user->identity->employerProfile->name ?></span>
                     <hr>
                 </div>
+                <div class="col-md-4">Nazwa użytkownika:</div>
+                <div class="col-md-8"><span class="badge badge-info" style="font-size: 20px"><?= Yii::$app->user->identity->username ?></span></div>
                 <div class="col-md-4"><?= EmployerProfile::instance()->getAttributeLabel('address') ?>:</div>
                 <div class="col-md-8"><?= Yii::$app->user->identity->employerProfile->address ?></div>
                 <div class="col-md-4"><?= EmployerProfile::instance()->getAttributeLabel('industry') ?>:</div>
@@ -59,5 +63,63 @@ $this->title = 'Profil pracodawcy';
                 <div class="col-md-8"><?= Yii::$app->user->identity->employerProfile->information ?></div>
             </div>
         </div>
+    </div>
+    <div class="mt-5">
+        <?= GridView::widget([
+            'id' => 'added-announcement',
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                'name',
+                'place',
+                'position',
+                [
+                    'attribute' => 'salary',
+                    'value' => static function ($model) {
+                        return $model->salary . ' zł. brutto/mies.';
+                    }
+                ],
+                [
+                    'attribute' => 'active',
+                    'format' => 'raw',
+                    'value' => static function (Announcement $model) {
+                        return '<span class="badge badge-' . ($model->active ? 'success' : 'danger') . '">' . ($model->active ? 'Tak' : 'Nie') . '</span>';
+                    },
+                    'hAlign' => 'center'
+                ],
+                'created_at',
+                [
+                    'class' => 'kartik\grid\ActionColumn',
+                    'width' => '85px',
+                    'header' => 'Akcje',
+                    'template' => '{view} {update} {delete}',
+                    'urlCreator' => static function ($action, /** @noinspection PhpUnusedParameterInspection */ $model, $key) {
+                        return Url::to(['/announcement/' . $action, 'id' => $key]);
+                    },
+                    'deleteOptions' => ['role' => 'modal-remote', 'title' => 'Usuń',
+                        'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                        'data-request-method' => 'post',
+                        'data-toggle' => 'tooltip',
+                        'data-confirm-title' => 'Potwierdź akcję.',
+                        'data-confirm-message' => 'Czy na pewno usunąć ten rekord?'],
+                ]
+            ],
+            'resizableColumns' => false,
+            'hover' => true,
+            'condensed' => true,
+            'striped' => false,
+            'pjax' => true,
+            'pjaxSettings' => [
+                'options' => [
+                    'enablePushState' => false,
+                    'enableReplaceState' => false
+                ]
+            ],
+            'headerRowOptions' => ['class' => 'break-word'],
+            'panelTemplate' => '{panelHeading} {items} {pager}',
+            'panelHeadingTemplate' => '{title}',
+            'panel' => [
+                'heading' => "<i class='fas fa-bullhorn'></i> Dodane ogłoszenia"
+            ]
+        ]) ?>
     </div>
 </div>
