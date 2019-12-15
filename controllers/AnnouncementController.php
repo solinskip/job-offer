@@ -35,9 +35,19 @@ class AnnouncementController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete'],
+                        'actions' => ['create'],
                         'matchCallback' => static function () {
                             return Yii::$app->user->identity->account_type === User::EMPLOYER;
+                        },
+                        'roles' => ['@']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update', 'delete'],
+                        'matchCallback' =>  function () {
+                            $modelAnnouncement = $this->findModel(Yii::$app->request->get('id'));
+
+                            return Yii::$app->user->id === $modelAnnouncement->created_by || Yii::$app->user->identity->isAdministrator;
                         },
                         'roles' => ['@']
                     ],

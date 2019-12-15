@@ -12,7 +12,7 @@ Yii::setAlias('@app', dirname(__DIR__ . '/../../'));
 Yii::setAlias('@webroot', dirname(__DIR__ . '/../../'));
 Yii::setAlias('@anyname', realpath(dirname(__FILE__)));
 
-Yii::setAlias('@images', realpath('/var/www/job-offer/images'));
+Yii::setAlias('@storage', realpath('/var/www/job-offer/storage'));
 
 $config = require __DIR__ . '/../config/web.php';
 

@@ -2,6 +2,7 @@
 
 use kartik\detail\DetailView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Announcement */
@@ -15,15 +16,25 @@ $this->title = $model->name;
         <div class="col-sm-9">
             <h2><?= 'Ogłoszenie: ' . $this->title ?></h2>
         </div>
-        <div class="col-sm-3 text-right pr-0">
-            <?= Html::a('<i class="fas fa-edit"></i> Aktualizuj', ['update', 'id' => $model->id], ['class' => 'btn modal-sub']) ?>
-            <?= Html::a('<i class="fas fa-trash-alt"></i> Usuń', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Czy na pewno chcesz usunąć to ogłoszenie?',
-                    'method' => 'post'
-                ]
-            ]) ?>
+        <div class="col-sm-3 text-right">
+            <? if ($model->created_by === Yii::$app->user->id || Yii::$app->user->identity->isAdministrator) : ?>
+                <?= Html::a('<i class="fas fa-edit"></i> Aktualizuj', Url::to(['update', 'id' => $model->id]), ['class' => 'btn modal-sub']) ?>
+                <?= Html::a('<i class="fas fa-trash-alt"></i> Usuń', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Czy na pewno chcesz usunąć to ogłoszenie?',
+                        'method' => 'post'
+                    ]
+                ]) ?>
+            <? endif; ?>
+            <? if (Yii::$app->user->identity->isEmployee) : ?>
+                <?= Html::a('<i class="fas fa-envelope"></i> Wyślij wiadomość', false, [
+                    'class' => 'btn modal-sub loadAjaxContent',
+                    'value' => Url::to(['/messages/create', 'id_user_to' => $model->created_by, 'id_announcement' => $model->id]),
+                    'icon' => '<i class="fas fa-envelope"></i>',
+                    'modaltitle' => 'Wyślij wiadomość'
+                ]) ?>
+            <? endif; ?>
         </div>
     </div>
 
@@ -44,12 +55,7 @@ $this->title = $model->name;
 
                 ],
                 'responsibilities:ntext',
-                'description:ntext',
-                [
-                    'attribute' => 'active',
-                    'format' => 'raw',
-                    'value' => '<span style ="font-size: 18px" class="badge badge-' . ($model->active ? 'success' : 'danger') . '">' . ($model->active ? 'Tak' : 'Nie') . '</span>',
-                ]
+                'description:ntext'
             ]
         ]) ?>
     </div>

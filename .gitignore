@@ -36,4 +36,5 @@ tests/_support/_generated
 assets/*
 
 # local images storage
-/images/profile_images/
+/storage/profile_images/
+/storage/attachments/

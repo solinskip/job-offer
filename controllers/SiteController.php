@@ -124,7 +124,7 @@ class SiteController extends Controller
     public function actionStorageDownload()
     {
         $requestedPath = urldecode(Yii::$app->request->getUrl());
-        $path = realpath(Yii::getAlias('@images') . '/' . $requestedPath);
+        $path = realpath(Yii::getAlias('@storage') . '/' . $requestedPath);
 
         if (file_exists($path)) {
             return Yii::$app->response->sendFile($path);
@@ -144,7 +144,7 @@ class SiteController extends Controller
     {
         ['key' => $key, 'dir' => $dir, 'fileName' => $fileName] = Yii::$app->request->post();
 
-        $path = Url::to('@images/') . $dir . '/' . $key . '/' . $fileName;
+        $path = Url::to('@storage/') . $dir . '/' . $key . '/' . $fileName;
         if (file_exists($path) && unlink($path)) {
             return true;
         }

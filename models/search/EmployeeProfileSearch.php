@@ -4,12 +4,12 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\EmployerProfile;
+use app\models\EmployeeProfile;
 
 /**
- * app\models\search\EmployerSearch represents the model behind the search form about `app\models\EmployerProfile`.
+ * app\models\search\EmployeeSearch represents the model behind the search form about `app\models\EmployeeProfile`.
  */
-class EmployerProfileSearch extends EmployerProfile
+class EmployeeProfileSearch extends EmployeeProfile
 {
     /**
      * @inheritdoc
@@ -17,8 +17,8 @@ class EmployerProfileSearch extends EmployerProfile
     public function rules()
     {
         return [
-            [['id', 'id_user', 'phone', 'fax'], 'integer'],
-            [['name', 'address', 'industry', 'email', 'information'], 'safe'],
+            [['id', 'id_user', 'phone'], 'integer'],
+            [['name', 'surname', 'email', 'education', 'birth_date', 'courses', 'experience', 'information'], 'safe'],
         ];
     }
 
@@ -35,14 +35,15 @@ class EmployerProfileSearch extends EmployerProfile
      * Creates data provider instance with search query applied
      *
      * @param array $params
+     *
      * @return ActiveDataProvider
      */
     public function search($params)
     {
-        $query = EmployerProfile::find();
+        $query = EmployeeProfile::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query
+            'query' => $query,
         ]);
 
         $query->joinWith('user');
@@ -50,20 +51,24 @@ class EmployerProfileSearch extends EmployerProfile
         $this->load($params);
 
         if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
             'id_user' => $this->id_user,
+            'birth_date' => $this->birth_date,
             'phone' => $this->phone,
-            'fax' => $this->fax
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'industry', $this->industry])
+            ->andFilterWhere(['like', 'surname', $this->surname])
             ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'education', $this->education])
+            ->andFilterWhere(['like', 'courses', $this->courses])
+            ->andFilterWhere(['like', 'experience', $this->experience])
             ->andFilterWhere(['like', 'information', $this->information]);
 
         return $dataProvider;

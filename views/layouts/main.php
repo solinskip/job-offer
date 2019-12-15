@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\models\Messages;
 use app\models\User;
 use app\widgets\Alert;
 use kartik\growl\Growl;
@@ -76,6 +77,14 @@ AppAsset::register($this);
                                         'visible' => Yii::$app->user->isGuest
                                     ],
                                     [
+                                        'label' => '<i class="fas fa-envelope"></i>&nbsp;</i>Wiadomości', 'url' => Messages::urlMessages(), 'encode' => false,
+                                        'linkOptions' => [
+                                            'class' => 'text-light',
+                                            'data-method' => 'post'
+                                        ],
+                                        'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->identity->isAdministrator
+                                    ],
+                                    [
                                         'label' => '<i class="fas fa-bullhorn"></i>&nbsp;</i>Ogłoszenia', 'url' => ['announcement/index'], 'encode' => false,
                                         'linkOptions' => [
                                             'class' => 'text-light',
@@ -84,12 +93,20 @@ AppAsset::register($this);
                                         'visible' => !Yii::$app->user->isGuest
                                     ],
                                     [
+                                        'label' => '<i class="fas fa-users-cog"></i> Panel', 'url' => Url::to(['admin/index']), 'encode' => false,
+                                        'linkOptions' => [
+                                            'class' => 'text-light',
+                                            'data-method' => 'post'
+                                        ],
+                                        'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdministrator
+                                    ],
+                                    [
                                         'label' => '<i class="fas fa-user">&nbsp;</i>Profil', 'url' => User::urlProfile(), 'encode' => false,
                                         'linkOptions' => [
                                             'class' => 'text-light',
                                             'data-method' => 'post'
                                         ],
-                                        'visible' => !Yii::$app->user->isGuest
+                                        'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->identity->isAdministrator
                                     ],
                                     [
                                         'label' => '<i class="fas fa-sign-out-alt">&nbsp;</i>Wyloguj się', 'url' => ['/site/logout'], 'encode' => false,

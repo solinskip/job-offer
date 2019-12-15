@@ -56,7 +56,8 @@ $config = [
             'showScriptName' => false,
             'baseUrl' => '/',
             'rules' => [
-                'profile_images/<path:.*>' => 'site/storage-download/'
+                'profile_images/<path:.*>' => 'site/storage-download/',
+                'attachments/<path:.*>' => 'site/storage-download/'
             ]
         ],
         'formatter' => [

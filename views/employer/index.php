@@ -82,7 +82,7 @@ $this->title = 'Profil pracodawcy';
                     'attribute' => 'active',
                     'format' => 'raw',
                     'value' => static function (Announcement $model) {
-                        return '<span class="badge badge-' . ($model->active ? 'success' : 'danger') . '">' . ($model->active ? 'Tak' : 'Nie') . '</span>';
+                        return '<span style="font-size: 18px" class="badge badge-' . ($model->active ? 'success' : 'danger') . '">' . ($model->active ? 'Tak' : 'Nie') . '</span>';
                     },
                     'hAlign' => 'center'
                 ],

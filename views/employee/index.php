@@ -45,6 +45,8 @@ $this->title = 'Profil pracownika';
                     <span class="display-4"><?= Yii::$app->user->identity->employeeProfile->name ?> <?= Yii::$app->user->identity->employeeProfile->surname ?></span>
                     <hr>
                 </div>
+                <div class="col-md-4">Nazwa użytkownika:</div>
+                <div class="col-md-8"><span class="badge badge-info" style="font-size: 20px"><?= Yii::$app->user->identity->username ?></span></div>
                 <div class="col-md-4"><?= EmployeeProfile::instance()->getAttributeLabel('email') ?>:</div>
                 <div class="col-md-8"><?= Yii::$app->user->identity->employeeProfile->email ?></div>
                 <div class="col-md-4"><?= EmployeeProfile::instance()->getAttributeLabel('education') ?>:</div>

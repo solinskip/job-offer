@@ -21,7 +21,9 @@ use yii\web\IdentityInterface;
  *
  * @property EmployerProfile $employerProfile
  * @property EmployeeProfile $employeeProfile
+ * @property bool $isAdministrator
  * @property bool $isEmployer
+ * @property bool $isEmployee
 
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -107,8 +109,26 @@ class User extends ActiveRecord implements IdentityInterface
      *
      * @return bool
      */
+    public function getIsAdministrator() {
+        return Yii::$app->user->identity->account_type === self::ADMINISTRATOR;
+    }
+
+    /**
+     * Checks that current logged user is employer
+     *
+     * @return bool
+     */
     public function getIsEmployer() {
-        return Yii::$app->user->identity->account_type === 1;
+        return Yii::$app->user->identity->account_type === self::EMPLOYER;
+    }
+
+    /**
+     * Checks that current logged user is employee
+     *
+     * @return bool
+     */
+    public function getIsEmployee() {
+        return Yii::$app->user->identity->account_type === self::EMPLOYEE;
     }
 
     /**

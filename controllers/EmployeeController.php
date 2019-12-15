@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Announcement;
+use app\models\EmployeeProfile;
 use app\models\EmployerProfile;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -71,29 +74,15 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Deletes an existing EmployerProfile model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-
-    /**
      * Finds the EmployerProfile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return EmployerProfile the loaded model
+     * @return EmployeeProfile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = EmployerProfile::findOne($id)) !== null) {
+        if (($model = EmployeeProfile::findOne($id)) !== null) {
             return $model;
         }
 

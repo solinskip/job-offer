@@ -120,7 +120,7 @@ class EmployeeProfile extends \yii\db\ActiveRecord
 
         if ($profileImage) {
             // Create path for save image
-            $path = Yii::getAlias('@app') . '/images/profile_images/' . Yii::$app->user->id;
+            $path = Yii::getAlias('@app') . '/storage/profile_images/' . Yii::$app->user->id;
             // Check of end catalog path, if not exist create one
             if (!is_dir($path)) {
                 BaseFileHelper::createDirectory($path, 0777, true);
