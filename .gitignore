@@ -32,9 +32,6 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 
-#Assets folder
-assets/*
-
 # local images storage
 /storage/profile_images/
 /storage/attachments/
