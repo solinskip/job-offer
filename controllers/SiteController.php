@@ -39,16 +39,27 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage with statistic transactions
+     * For guests display homepage with information about login
+     * For logged users display announcements list
+     * For administrator display control panel
      *
      * @return string
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest) {
+            return $this->render('index');
+        }
+        if (Yii::$app->user->identity->isAdministrator) {
+            return $this->redirect('admin/index');
+        }
+
+        return $this->redirect('announcement/index');
     }
 
     /**
+     * Signup new users
+     *
      * @return string|Response
      * @throws \yii\base\Exception
      */
@@ -68,7 +79,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Login action.
+     * Login action
      *
      * @return Response|string
      */
@@ -88,6 +99,11 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * Reset password current logged user
+     *
+     * @return string|Response
+     */
     public function actionResetPassword()
     {
         $model = new ResetPassword();
@@ -104,7 +120,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Logout action.
+     * Logout action
      *
      * @return Response
      */
@@ -116,7 +132,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Allow to download local file
+     * Allows to download local file
      *
      * @return \yii\console\Response|Response
      * @throws \yii\base\InvalidConfigException
@@ -124,13 +140,12 @@ class SiteController extends Controller
     public function actionStorageDownload()
     {
         $requestedPath = urldecode(Yii::$app->request->getUrl());
+        // Path to local file
         $path = realpath(Yii::getAlias('@storage') . '/' . $requestedPath);
 
         if (file_exists($path)) {
             return Yii::$app->response->sendFile($path);
         }
-
-//        Yii::$app->session->setFlash('danger', 'Plik, który próbujesz pobrać nie istnieje.');
 
         return $this->redirect(['/site/index']);
     }
@@ -167,7 +182,7 @@ class SiteController extends Controller
      */
     public function actionValidateForm($model)
     {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
         if ($model) {
             $model = new $model;

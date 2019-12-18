@@ -13,7 +13,6 @@ $this->title = 'Wiadomości';
 
 ?>
 <div class="messages-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <hr>

@@ -29,7 +29,7 @@ class EmployerController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'update', 'added-announcements'],
                         'roles' => ['@']
                     ],
                     [
@@ -47,14 +47,7 @@ class EmployerController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AnnouncementSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        // Display only those announcements that current logged user created
-        $dataProvider->query->andWhere(['created_by' => Yii::$app->user->id]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider
-        ]);
+        return $this->render('index');
     }
 
     /**
@@ -75,6 +68,23 @@ class EmployerController extends Controller
 
         return $this->render('update', [
             'model' => $modelProfile,
+        ]);
+    }
+
+    /**
+     * Display list of added announcements current logged employer
+     *
+     * @return string
+     */
+    public function actionAddedAnnouncements()
+    {
+        $searchModel = new AnnouncementSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // Display only those announcements that current logged user created
+        $dataProvider->query->andWhere(['created_by' => Yii::$app->user->id]);
+
+        return $this->render('addedAnnouncements', [
+            'dataProvider' => $dataProvider
         ]);
     }
 
