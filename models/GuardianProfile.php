@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
  * @property integer $id
  * @property integer $id_user
  * @property string $name
+ * @property string $surname
  * @property string $email
  * @property integer $phone
  *
@@ -54,7 +55,7 @@ class GuardianProfile extends \yii\db\ActiveRecord
         return [
             [['id_user'], 'required'],
             [['phone'], 'integer'],
-            [['name', 'email'], 'string', 'max' => 50],
+            [['name', 'surname', 'email'], 'string', 'max' => 50],
 
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
@@ -77,6 +78,7 @@ class GuardianProfile extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_user' => 'Id User',
             'name' => 'Imię',
+            'surname' => 'Nazwisko',
             'email' => 'Nazwisko',
             'phone' => 'Telefon kom.',
         ];

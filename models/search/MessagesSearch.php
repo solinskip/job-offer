@@ -1,4 +1,4 @@
-<?php
+<?
 
 namespace app\models\search;
 
@@ -18,7 +18,7 @@ class MessagesSearch extends Messages
     public function rules()
     {
         return [
-            [['id', 'id_user_from', 'id_user_to', 'id_announcement', 'isRead'], 'integer'],
+            [['id', 'id_user_from', 'id_user_to', 'id_announcement', 'isRead', 'internshipRequest'], 'integer'],
             [['message', 'created_at'], 'safe'],
         ];
     }
@@ -68,6 +68,7 @@ class MessagesSearch extends Messages
             'id_user_to' => $this->id_user_to,
             'id_announcement' => $this->id_announcement,
             'isRead' => $this->isRead,
+            'internshipRequest' => $this->internshipRequest,
             'created_at' => $this->created_at,
         ]);
 

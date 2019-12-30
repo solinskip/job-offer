@@ -2,15 +2,14 @@
 
 namespace app\models\search;
 
-use Yii;
+use app\models\GuardianProfile;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\GuardianProfile;
 
 /**
  * app\models\search\GuardianProfileSearch represents the model behind the search form about `app\models\GuardianProfile`.
  */
- class GuardianProfileSearch extends GuardianProfile
+class GuardianProfileSearch extends GuardianProfile
 {
     /**
      * @inheritdoc
@@ -19,7 +18,7 @@ use app\models\GuardianProfile;
     {
         return [
             [['id', 'id_user', 'phone'], 'integer'],
-            [['name', 'email'], 'safe'],
+            [['name', 'surname', 'email'], 'safe'],
         ];
     }
 
@@ -62,6 +61,7 @@ use app\models\GuardianProfile;
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'surname', $this->surname])
             ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;

@@ -76,7 +76,7 @@ class SiteController extends Controller
             }
 
             Yii::$app->session->setFlash('success', 'Rejestracja opiekuna przebiegła pomyślnie.');
-            return $this->redirect(Url::to(['employer/index']));
+            return $this->redirect(Url::to(['employer/added-guardians']));
         }
 
         return $this->renderAjax('signup', [

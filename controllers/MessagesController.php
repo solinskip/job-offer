@@ -119,10 +119,9 @@ class MessagesController extends Controller
             $model->id_user_from = Yii::$app->user->id;
             $model->id_user_to = $id_user_to;
             $model->id_announcement = $id_announcement;
-            $model->save();
-            $model->upload();
-
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save() && $model->upload()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->renderAjax('create', [

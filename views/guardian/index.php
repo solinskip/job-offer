@@ -1,20 +1,19 @@
 <?
 
 /* @var $this yii\web\View */
-/* @var $searchModel \app\models\search\EmployeeProfileSearch */
+/* @var $searchModel \app\models\search\GuardianProfileSearch */
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $model EmployeeProfile */
 
 use app\models\EmployeeProfile;
 use app\models\Upload;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Profil pracownika';
+$this->title = 'Profil opiekuna';
 
 ?>
-<div class="employer-profile-index">
+<div class="guardian-profile-index">
     <div class="row">
         <div class="col-md-8"><h1><?= Html::encode($this->title) ?></h1></div>
         <? if ($model->isOwnerProfile) : ?>

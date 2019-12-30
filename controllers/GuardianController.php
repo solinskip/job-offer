@@ -72,15 +72,15 @@ class GuardianController extends Controller
     }
 
     /**
-     * Finds the EmployerProfile model based on its primary key value.
+     * Finds the GuardianProfile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return EmployeeProfile the loaded model
+     * @return GuardianProfile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = EmployeeProfile::findOne($id)) !== null) {
+        if (($model = GuardianProfile::findOne($id)) !== null) {
             return $model;
         }
 

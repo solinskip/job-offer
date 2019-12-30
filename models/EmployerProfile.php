@@ -20,6 +20,7 @@ use yii\web\UploadedFile;
  * @property string|null $information
  *
  * @property User $user
+ * @property bool $isOwnerProfile
  */
 class EmployerProfile extends \yii\db\ActiveRecord
 {
@@ -101,6 +102,16 @@ class EmployerProfile extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'id_user']);
+    }
+
+    /**
+     * Checks that current logged user is viewer his own profile
+     *
+     * @return bool
+     */
+    public function getIsOwnerProfile()
+    {
+        return Yii::$app->user->identity->account_type === User::EMPLOYER && Yii::$app->user->identity->employerProfile->id === $this->id;
     }
 
     /**

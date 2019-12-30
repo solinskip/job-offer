@@ -22,8 +22,8 @@ use yii\web\UploadedFile;
  *
  * @property User $fromUser
  * @property User $toUser
- *
  * @property Announcement $announcement
+ * @property string $internshipRequestHtml
  */
 class Messages extends \yii\db\ActiveRecord
 {
@@ -40,7 +40,7 @@ class Messages extends \yii\db\ActiveRecord
             [['message'], 'string'],
             [['created_at'], 'safe'],
 
-            ['isRead', 'internshipRequest', 'default', 'value' => 0],
+            [['isRead', 'internshipRequest'], 'default', 'value' => 0],
 
             [['attachment'], 'file', 'skipOnEmpty' => true]
 
@@ -113,6 +113,16 @@ class Messages extends \yii\db\ActiveRecord
         }
 
         throw new \yii\base\Exception('Account type not allowed');
+    }
+
+    /**
+     * Return a HTML badge with result of internship request
+     *
+     * @return string
+     */
+    public function getInternshipRequestHtml()
+    {
+        return '<span style="font-size: 18px" class="badge badge-' . ($this->internshipRequest ? 'success' : 'danger') . '">' . ($this->internshipRequest ? 'Tak' : 'Nie') . '</span>';
     }
 
     /**

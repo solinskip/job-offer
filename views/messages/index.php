@@ -8,6 +8,7 @@
 use app\models\Messages;
 use kartik\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'Wiadomości';
 
@@ -30,7 +31,7 @@ $this->title = 'Wiadomości';
                 $readMessage = $model->isRead ? null : 'Nowa!';
 
                 return '<div style="position: relative">
-                        <div style="width: 90%">' . $model->fromUser->username . '</div>
+                        <div style="width: 90%">' . Html::a($model->fromUser->username, Url::to(['/employee/index', 'id' => $model->fromUser->employeeProfile->id]), ['data-pjax' => 0]) . '</div>
                         <div style="position: absolute; right: 5px; top: 0"><span class="badge badge-warning">' . $readMessage . '</span></div>
                     </div>';
             }
@@ -39,8 +40,9 @@ $this->title = 'Wiadomości';
     if (Yii::$app->controller->action->id === 'employee-index') {
         $gridColumn[] = [
             'attribute' => 'id_user_to',
+            'format' => 'raw',
             'value' => static function (Messages $model) {
-                return $model->toUser->username;
+                return Html::a($model->toUser->username, Url::to(['/employer/index', 'id' => $model->toUser->employerProfile->id]));
             }
         ];
     }
@@ -64,6 +66,17 @@ $this->title = 'Wiadomości';
                 return $beginOfMessage;
             }
         ],
+        [
+            'attribute' => 'internshipRequest',
+            'format' => 'raw',
+            'hAlign' => 'center',
+            'value' => static function (Messages $model) {
+                return $model->internshipRequestHtml;
+            }
+        ]
+    ]);
+
+    $gridColumn = array_merge($gridColumn, [
         'created_at',
         [
             'class' => 'kartik\grid\ActionColumn',

@@ -11,7 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
- * EmployeeController implements the CRUD actions for EmployerProfile model.
+ * EmployeeController implements the CRUD actions for EmployeeProfile model.
  */
 class EmployeeController extends Controller
 {
@@ -29,7 +29,7 @@ class EmployeeController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'update'],
                         'roles' => ['@']
                     ],
                     [
@@ -41,17 +41,23 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Display a current login employer profile
+     * Display a current logged or selected employee profile
      *
+     * @param int $id
      * @return string
+     * @throws NotFoundHttpException
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
-        return $this->render('index');
+        $id = $id ?? Yii::$app->user->identity->employeeProfile->id;
+
+        $model = $this->findModel($id);
+
+        return $this->render('index', ['model' => $model]);
     }
 
     /**
-     * Updates an existing EmployerProfile model.
+     * Updates an existing EmployeeProfile model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
      * @return string|\yii\web\Response
@@ -72,7 +78,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Finds the EmployerProfile model based on its primary key value.
+     * Finds the EmployeeProfile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
      * @return EmployeeProfile the loaded model

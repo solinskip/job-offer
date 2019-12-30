@@ -2,6 +2,7 @@
 
 use kartik\widgets\FileInput;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -10,7 +11,13 @@ use yii\widgets\ActiveForm;
 
 ?>
 <div class="messages-form">
-    <? $form = ActiveForm::begin(); ?>
+    <? $form = ActiveForm::begin([
+        'id' => 'form-messages',
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => true,
+        'validationUrl' => Url::to(['site/validate-form', 'model' => get_class($model)]),
+        'errorCssClass' => 'text-danger',
+    ]); ?>
 
     <?= $form->field($model, 'message')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'attachment')->widget(FileInput::class, [
@@ -27,6 +34,7 @@ use yii\widgets\ActiveForm;
             'browseLabel' => 'Wybierz załącznik',
         ]
     ]) ?>
+    <?= $form->field($model, 'internshipRequest')->checkbox(['uncheck' => 0]) ?>
 
     <hr>
     <div class="form-group text-right">

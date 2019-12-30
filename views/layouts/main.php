@@ -80,7 +80,6 @@ AppAsset::register($this);
                                         'label' => '<i class="fas fa-envelope"></i>&nbsp;</i>Wiadomości', 'url' => Messages::urlMessages(), 'encode' => false,
                                         'linkOptions' => [
                                             'class' => 'text-light',
-                                            'data-method' => 'post'
                                         ],
                                         'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->identity->isAdministrator
                                     ],
@@ -88,7 +87,6 @@ AppAsset::register($this);
                                         'label' => '<i class="fas fa-bullhorn"></i>&nbsp;</i>Ogłoszenia', 'url' => ['announcement/index'], 'encode' => false,
                                         'linkOptions' => [
                                             'class' => 'text-light',
-                                            'data-method' => 'post'
                                         ],
                                         'visible' => !Yii::$app->user->isGuest
                                     ],
@@ -96,7 +94,6 @@ AppAsset::register($this);
                                         'label' => '<i class="fas fa-users-cog"></i> Panel', 'url' => Url::to(['admin/index']), 'encode' => false,
                                         'linkOptions' => [
                                             'class' => 'text-light',
-                                            'data-method' => 'post'
                                         ],
                                         'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdministrator
                                     ],
@@ -104,7 +101,6 @@ AppAsset::register($this);
                                         'label' => '<i class="fas fa-user">&nbsp;</i>Profil', 'url' => User::urlProfile(), 'encode' => false,
                                         'linkOptions' => [
                                             'class' => 'text-light',
-                                            'data-method' => 'post'
                                         ],
                                         'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->identity->isAdministrator
                                     ],

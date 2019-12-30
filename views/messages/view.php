@@ -25,31 +25,36 @@ $this->title = 'Wiadomość';
 
     <hr class="mt-0 mb-4">
 
-    <div class="row">
-        <?= DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                [
-                    'attribute' => 'announcement',
-                    'value' => $model->announcement->name
-                ],
-                'message:ntext',
-                'created_at',
-                [
-                    'attribute' => 'attachment',
-                    'format' => 'raw',
-                    'value' => call_user_func(static function (Messages $model) {
-                        $fileLink = Upload::fileLink('attachments', $model->id_user_from . '-' . $model->id, 'attachment.pdf');
+    <div class="row"
+         <?= DetailView::widget([
+             'model' => $model,
+             'attributes' => [
+                 [
+                     'attribute' => 'announcement',
+                     'value' => $model->announcement->name
+                 ],
+                 'message:ntext',
+                 [
+                     'attribute' => 'internshipRequest',
+                     'format' => 'raw',
+                     'value' => $model->internshipRequestHtml
+                 ],
+                 'created_at',
+                 [
+                     'attribute' => 'attachment',
+                     'format' => 'raw',
+                     'value' => call_user_func(static function (Messages $model) {
+                         $fileLink = Upload::fileLink('attachments', $model->id_user_from . '-' . $model->id, 'attachment.pdf');
 
-                        return $fileLink ? Html::a('Załącznik', $fileLink, []) : 'Brak';
-                    }, $model)
+                         return $fileLink ? Html::a('Załącznik', $fileLink, []) : 'Brak';
+                     }, $model)
 
 
-                ]
-            ],
-            'striped' => false,
-            'condensed' => true,
-            'hover' => true,
-        ]) ?>
-    </div>
+                 ]
+             ],
+             'striped' => false,
+             'condensed' => true,
+             'hover' => true,
+         ]) ?>
+</div>
 </div>
