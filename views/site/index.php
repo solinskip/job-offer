@@ -13,3 +13,11 @@ $this->title = 'Home';
         </div>
     </div>
 </div>
+<style>
+    body {
+        background-image: url('https://blogerasmus.pl/wp-content/uploads/2019/05/Politechnika-Rzeszkowska.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+</style>

@@ -15,7 +15,7 @@ use kartik\form\ActiveForm;
             'id' => 'form-reset-password',
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
-            'validationUrl' => Url::to(['validate-form', 'model' => get_class($model)]),
+            'validationUrl' => Url::to(['site/validate-form', 'model' => get_class($model)]),
             'errorCssClass' => 'text-danger',
         ]); ?>
 

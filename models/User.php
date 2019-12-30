@@ -12,15 +12,18 @@ use yii\web\IdentityInterface;
  * This is the model class for table "{{%user}}".
  *
  * @property int $id
+ * @property int $id_employer
  * @property string $username
- * @property int $account_type, 0 => administrator, 1 => employer, 2 => employee
+ * @property int $account_type, 0 => administrator, 1 => employer, 2 => employee, 3 => guardian
  * @property string $password_hash
  * @property int $created_at
  * @property int $modified_at
  * @property int $logged_at
  *
+ * @property User $idEmployer
  * @property EmployerProfile $employerProfile
  * @property EmployeeProfile $employeeProfile
+ * @property GuardianProfile $guardianProfile
  * @property bool $isAdministrator
  * @property bool $isEmployer
  * @property bool $isEmployee
@@ -31,6 +34,7 @@ class User extends ActiveRecord implements IdentityInterface
     public const ADMINISTRATOR = 0;
     public const EMPLOYER = 1;
     public const EMPLOYEE = 2;
+    public const GUARDIAN = 3;
 
     public static function tableName()
     {
@@ -66,6 +70,14 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getIdEmployer()
+    {
+        return $this->hasOne(__CLASS__, ['id' => 'id_employer']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getEmployerProfile()
     {
         return $this->hasOne(EmployerProfile::class, ['id_user' => 'id']);
@@ -77,6 +89,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getEmployeeProfile()
     {
         return $this->hasOne(EmployeeProfile::class, ['id_user' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGuardianProfile()
+    {
+        return $this->hasOne(GuardianProfile::class, ['id_user' => 'id']);
     }
 
     /**
@@ -99,6 +119,9 @@ class User extends ActiveRecord implements IdentityInterface
         }
         if (Yii::$app->user->identity->attributes['account_type'] === self::EMPLOYEE) {
             return Url::to(['/employee/index']);
+        }
+        if (Yii::$app->user->identity->attributes['account_type'] === self::GUARDIAN) {
+            return Url::to(['/guardian/index']);
         }
 
         throw new \yii\base\Exception('Account type not allowed');
@@ -129,6 +152,15 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getIsEmployee() {
         return Yii::$app->user->identity->account_type === self::EMPLOYEE;
+    }
+
+    /**
+     * Checks that current logged user is employee
+     *
+     * @return bool
+     */
+    public function getIsGuardian() {
+        return Yii::$app->user->identity->account_type === self::GUARDIAN;
     }
 
     /**

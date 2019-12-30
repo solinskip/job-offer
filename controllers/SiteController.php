@@ -60,21 +60,27 @@ class SiteController extends Controller
     /**
      * Signup new users
      *
+     * @param bool $withAccountType
      * @return string|Response
      * @throws \yii\base\Exception
      */
-    public function actionSignup()
+    public function actionSignup($withAccountType = true)
     {
-        $model = new Signup();
+        $scenario = $withAccountType ? 'signup' : 'guardian';
+        $model = new Signup(['scenario' => $scenario]);
 
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Rejestracja przebiegła pomyślnie, teraz możesz się zalogować na swoje konto.');
+            if ($withAccountType) {
+                Yii::$app->session->setFlash('success', 'Rejestracja przebiegła pomyślnie, teraz możesz się zalogować na swoje konto.');
+                return $this->redirect(Url::to(['/site/index']));
+            }
 
-            return $this->redirect(Url::to(['/site/index']));
+            Yii::$app->session->setFlash('success', 'Rejestracja opiekuna przebiegła pomyślnie.');
+            return $this->redirect(Url::to(['employer/index']));
         }
 
         return $this->renderAjax('signup', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
@@ -178,14 +184,19 @@ class SiteController extends Controller
 
     /**
      * @param ActiveRecord $model
+     * @param string $scenario
      * @return array|bool
      */
-    public function actionValidateForm($model)
+    public function actionValidateForm($model, $scenario = null)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if ($model) {
             $model = new $model;
+            // Set scenario if is different than default
+            if ($scenario !== null) {
+                $model->scenario = $scenario;
+            }
             $model->load(Yii::$app->request->post());
 
             return \kartik\form\ActiveForm::validate($model);

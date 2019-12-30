@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\EmployeeProfile;
-use app\models\EmployerProfile;
+use app\models\GuardianProfile;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -11,9 +11,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
- * EmployeeController implements the CRUD actions for EmployerProfile model.
+ * GuardianController implements the CRUD actions for EGuardianProfile model.
  */
-class EmployeeController extends Controller
+class GuardianController extends Controller
 {
     public function behaviors()
     {
@@ -21,8 +21,8 @@ class EmployeeController extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'delete' => ['post'],
-                ],
+                    'delete' => ['post']
+                ]
             ],
             'access' => [
                 'class' => AccessControl::class,
@@ -41,7 +41,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Display a current login employer profile
+     * Display a current login guardian profile
      *
      * @return string
      */
@@ -51,15 +51,15 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Updates an existing EmployerProfile model.
+     * Updates an existing GuardianProfile model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
      * @return string|\yii\web\Response
      */
     public function actionUpdate()
     {
-        /** @var EmployerProfile $modelProfile */
-        $modelProfile = Yii::$app->user->identity->employeeProfile;
+        /** @var GuardianProfile $modelProfile */
+        $modelProfile = Yii::$app->user->identity->guardianProfile;
         $modelProfile->scenario = 'update';
 
         if ($modelProfile->load(Yii::$app->request->post()) && $modelProfile->save() && $modelProfile->upload()) {

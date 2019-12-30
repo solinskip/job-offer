@@ -17,6 +17,7 @@ use yii\web\UploadedFile;
  * @property integer $id_announcement
  * @property string $message
  * @property integer $isRead
+ * @property integer $internshipRequest
  * @property string $created_at
  *
  * @property User $fromUser
@@ -35,11 +36,11 @@ class Messages extends \yii\db\ActiveRecord
     {
         return [
             [['id_user_from', 'id_user_to', 'message'], 'required'],
-            [['id_user_from', 'id_user_to', 'id_announcement', 'isRead'], 'integer'],
+            [['id_user_from', 'id_user_to', 'id_announcement', 'isRead', 'internshipRequest'], 'integer'],
             [['message'], 'string'],
             [['created_at'], 'safe'],
 
-            ['isRead', 'default', 'value' => 0],
+            ['isRead', 'internshipRequest', 'default', 'value' => 0],
 
             [['attachment'], 'file', 'skipOnEmpty' => true]
 
@@ -66,6 +67,7 @@ class Messages extends \yii\db\ActiveRecord
             'id_announcement' => 'Ogłoszenie',
             'message' => 'Wiadomość',
             'isRead' => 'Odczytana',
+            'internshipRequest' => 'Prośba o staż',
             'created_at' => 'Wysłano',
             'attachment' => 'Załącznik',
         ];

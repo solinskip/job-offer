@@ -1,7 +1,7 @@
 <?
 
-use yii\helpers\Html;
 use kartik\form\ActiveForm;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
@@ -14,12 +14,16 @@ use yii\widgets\Pjax;
         <? $form = ActiveForm::begin([
             'id' => 'form-signup',
             'enableAjaxValidation' => true,
-            'validationUrl' => Url::to(['site/validate-form', 'model' => get_class($model)]),
+            'validationUrl' => Url::to(['site/validate-form', 'model' => get_class($model), 'scenario' => $model->scenario]),
             'errorCssClass' => 'text-danger',
         ]); ?>
 
         <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'account_type')->radioList([1 => 'Pracodawca', 2 => 'Pracownik'], ['inline' => true]) ?>
+
+        <? if ($model->scenario === 'signup') : ?>
+            <?= $form->field($model, 'account_type')->radioList([1 => 'Pracodawca', 2 => 'Pracownik'], ['inline' => true]) ?>
+        <? endif; ?>
+
         <?= $form->field($model, 'password')->passwordInput(['autocomplete' => 'new-password']) ?>
 
         <hr>
