@@ -55,6 +55,8 @@ $this->title = $model->name;
                     'value' => $model->salary . ' zł. brutto/mies.',
 
                 ],
+                'start_date',
+                'end_date',
                 'responsibilities:ntext',
                 'description:ntext'
             ]

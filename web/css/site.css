@@ -231,6 +231,7 @@ li.first.disabled, li.last.disabled {
 .glyphicon-eye-open::before {
     content: '\f06e';
 }
+
 .glyphicon-pencil::before {
     content: "\f044";
 }
@@ -254,22 +255,27 @@ li.first.disabled, li.last.disabled {
 
 .employer-profile-form .input-group-addon:first-child,
 .employee-profile-form .input-group-addon:first-child,
+.announcement-form .input-group-addon:first-child,
 .employer-profile-form.input-group-addon:nth-child(2),
-.employee-profile-form.input-group-addon:nth-child(2) {
+.employee-profile-form.input-group-addon:nth-child(2),
+.announcement-form.input-group-addon:nth-child(2) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
 .employer-profile-form .input-group-addon:last-child,
 .employee-profile-form .input-group-addon:last-child,
+.announcement-form .input-group-addon:last-child,
 .employer-profile-form .input-group-addon:nth-child(2),
-.employee-profile-form .input-group-addon:nth-child(2) {
+.employee-profile-form .input-group-addon:nth-child(2),
+.announcement-form .input-group-addon:nth-child(2) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
 .employer-profile-form .input-group-addon,
-.employee-profile-form .input-group-addon {
+.employee-profile-form .input-group-addon,
+.announcement-form .input-group-addon {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
@@ -294,6 +300,7 @@ li.first.disabled, li.last.disabled {
 .company-name-announcement {
     font-size: 20px;
 }
+
 i {
     font-style: normal;
 }

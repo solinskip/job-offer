@@ -1,6 +1,7 @@
 <?
 
 use app\models\Announcement;
+use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
 use kartik\widgets\SwitchInput;
 use kartik\widgets\TouchSpin;
@@ -37,6 +38,12 @@ use yii\widgets\ActiveForm;
                 'buttondown_txt' => '<i class="fa fa-minus"></i>',
                 'buttonup_txt' => '<i class="fa fa-plus"></i>'
             ]
+        ]) ?>
+        <?= $form->field($model, 'start_date', ['options' => ['class' => 'col-md-6']])->widget(DateControl::class, [
+            'saveFormat' => 'php:Y-m-d'
+        ]) ?>
+        <?= $form->field($model, 'end_date', ['options' => ['class' => 'col-md-6']])->widget(DateControl::class, [
+            'saveFormat' => 'php:Y-m-d'
         ]) ?>
         <?= $form->field($model, 'responsibilities', ['options' => ['class' => 'col-md-12']])->textarea(['rows' => 6, 'placeholder' => 'Podaj obowiązki...']) ?>
         <?= $form->field($model, 'description', ['options' => ['class' => 'col-md-12']])->textarea(['rows' => 6, 'placeholder' => 'Podaj opis stanowiska...']) ?>

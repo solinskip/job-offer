@@ -59,12 +59,12 @@ class Announcement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'place', 'position', 'responsibilities', 'description'], 'required'],
+            [['name', 'place', 'position', 'responsibilities', 'description', 'start_date', 'end_date'], 'required'],
 
             [['salary', 'active', 'created_by'], 'integer'],
             ['active', 'default', 'value' => 1],
             [['responsibilities', 'description'], 'string'],
-            [['created_at', 'fromSalary', 'toSalary'], 'safe'],
+            [['created_at', 'fromSalary', 'toSalary', 'start_date', 'end_date'], 'safe'],
             [['name', 'place', 'position'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']]
         ];
@@ -84,6 +84,8 @@ class Announcement extends \yii\db\ActiveRecord
             'responsibilities' => 'Obowiązki',
             'description' => 'Opis stanowiska',
             'active' => 'Aktywne',
+            'start_date' => 'Data rozpoczęcia',
+            'end_date' => 'Data zakończenia',
             'created_at' => 'Data utworzenia',
             'created_by' => 'Utworzono przez',
         ];
