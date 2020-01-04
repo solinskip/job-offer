@@ -13,11 +13,12 @@ $this->title = $model->name;
 <div class="announcement-view">
 
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-7">
             <h2><?= 'Ogłoszenie: ' . $this->title ?></h2>
         </div>
-        <div class="col-sm-3 text-right">
+        <div class="col-sm-5 text-right">
             <? if ($model->created_by === Yii::$app->user->id || Yii::$app->user->identity->isAdministrator) : ?>
+                <?= Html::a('<i class="fas fa-list"></i> Lista chętnych', Url::to(['internship/willing-list', 'id_announcement' => $model->id]), ['class' => 'btn modal-sub']) ?>
                 <?= Html::a('<i class="fas fa-edit"></i> Aktualizuj', Url::to(['update', 'id' => $model->id]), ['class' => 'btn modal-sub']) ?>
                 <?= Html::a('<i class="fas fa-trash-alt"></i> Usuń', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',

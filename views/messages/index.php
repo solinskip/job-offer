@@ -92,13 +92,6 @@ $this->title = 'Wiadomości';
         'hover' => true,
         'condensed' => true,
         'striped' => false,
-        'pjax' => true,
-        'pjaxSettings' => [
-            'options' => [
-                'enablePushState' => false,
-                'enableReplaceState' => false
-            ]
-        ],
         'headerRowOptions' => ['class' => 'break-word'],
         'panelTemplate' => '{panelHeading} {items} {pager}',
         'panelHeadingTemplate' => '{title}',

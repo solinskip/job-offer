@@ -301,3 +301,7 @@ i {
 .form-announcement-search .kv-field-separator {
     padding-top: 5px;
 }
+
+.select2-container {
+    padding-bottom: 9px;
+}

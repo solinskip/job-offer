@@ -44,7 +44,7 @@ class AnnouncementController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['update', 'delete'],
-                        'matchCallback' =>  function () {
+                        'matchCallback' => function () {
                             $modelAnnouncement = $this->findModel(Yii::$app->request->get('id'));
 
                             return Yii::$app->user->id === $modelAnnouncement->created_by || Yii::$app->user->identity->isAdministrator;

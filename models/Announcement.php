@@ -16,6 +16,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $responsibilities
  * @property string $description
  * @property int|null $active
+ * @property string $start_date
+ * @property string $end_date
  * @property string $created_at
  * @property int $created_by
  *
@@ -85,6 +87,14 @@ class Announcement extends \yii\db\ActiveRecord
             'created_at' => 'Data utworzenia',
             'created_by' => 'Utworzono przez',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessages()
+    {
+        return $this->hasMany(Messages::class, ['id_announcement' => 'id']);
     }
 
     /**

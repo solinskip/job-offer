@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Internship;
 use app\models\Messages;
 use app\models\search\MessagesSearch;
 use app\models\User;
@@ -107,6 +108,7 @@ class MessagesController extends Controller
     /**
      * Creates a new Messages model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @param int $id_user_to
      * @param int $id_announcement
      * @return mixed
@@ -120,7 +122,21 @@ class MessagesController extends Controller
             $model->id_user_to = $id_user_to;
             $model->id_announcement = $id_announcement;
             if ($model->save() && $model->upload()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                // Create new record in internship table
+                if ($model->internshipRequest) {
+                    $modelInternship = new Internship([
+                        'id_employee' => $model->id_user_from,
+                        'id_employer' => $model->id_user_to,
+                        'id_announcement' => $model->id_announcement,
+                        'id_messages' => $model->id,
+
+                    ]);
+                    if ($modelInternship->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } else {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
 

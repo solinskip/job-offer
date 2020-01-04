@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Login;
 use app\models\ResetPassword;
 use app\models\Signup;
+use app\models\User;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
@@ -180,6 +181,28 @@ class SiteController extends Controller
     public function actionError()
     {
         return $this->render('error');
+    }
+
+    /**
+     * Finds the data for ajax select lists
+     *
+     * @param string $q
+     * @param string|null $type
+     * @return Response
+     */
+    public function actionAjaxList(string $q = '', string $type = null)
+    {
+        if ($type === 'internshipGuardian') {
+            $out['results'] = User::find()
+                ->select(['id' => 'user.id', 'text' => "CONCAT(guardian_profile.name, ' ', guardian_profile.surname)"])
+                ->joinWith('guardianProfile')
+                ->where(['OR', ['LIKE', 'guardian_profile.name', $q], ['LIKE', 'guardian_profile.surname', $q]])
+                ->asArray()
+                ->limit(20)
+                ->all();
+        }
+
+        return $this->asJson($out);
     }
 
     /**

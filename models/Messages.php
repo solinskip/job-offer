@@ -97,6 +97,14 @@ class Messages extends \yii\db\ActiveRecord
         return $this->hasOne(Announcement::class, ['id' => 'id_announcement']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInternships()
+    {
+        return $this->hasMany(Internship::class, ['id_messages' => 'id']);
+    }
+
     public static function urlMessages()
     {
         if (Yii::$app->user->isGuest) {
