@@ -46,6 +46,8 @@ class InternshipSearch extends Internship
 
         $this->load($params);
 
+        $query->joinWith(['announcement', 'employer']);
+
         if (!$this->validate()) {
             return $dataProvider;
         }

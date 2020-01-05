@@ -17,11 +17,14 @@ namespace app\models;
  * @property User $employer
  * @property User $guardian
  * @property Announcement $announcement
+ * @property InternshipDiary $internshipDiaries
  * @property Messages $messages
  * @property string $acceptedHtml
  */
 class Internship extends \yii\db\ActiveRecord
 {
+    use \mootensai\relation\RelationTrait;
+
     /**
      * @inheritdoc
      */
@@ -87,6 +90,14 @@ class Internship extends \yii\db\ActiveRecord
     public function getAnnouncement()
     {
         return $this->hasOne(Announcement::class, ['id' => 'id_announcement']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInternshipDiaries()
+    {
+        return $this->hasMany(InternshipDiary::class, ['id_internship' => 'id']);
     }
 
     /**

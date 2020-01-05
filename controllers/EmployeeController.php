@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\EmployeeProfile;
 use app\models\EmployerProfile;
+use app\models\search\InternshipSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -52,8 +53,18 @@ class EmployeeController extends Controller
         $id = $id ?? Yii::$app->user->identity->employeeProfile->id;
 
         $model = $this->findModel($id);
+        // Get all active/completed internships current employee
+        $searchModel = new InternshipSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere([
+            'id_employee' => $model->user->id,
+            'accepted' => 1
+        ]);
 
-        return $this->render('index', ['model' => $model]);
+        return $this->render('index', [
+            'model' => $model,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**

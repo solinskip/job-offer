@@ -59,7 +59,7 @@ $this->title = 'Lista chętnych: ' . $modelAnnouncement->name;
         [
             'attribute' => 'id_guardian',
             'value' => static function (Internship $model) {
-                return isset($model->guardian->guardianProfile) ? $model->guardian->guardianProfile->name . ' ' . $model->guardian->guardianProfile->surname : null;
+                return isset($model->guardian) ? $model->guardian->username : null;
             }
         ],
         [

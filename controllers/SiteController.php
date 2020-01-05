@@ -192,11 +192,12 @@ class SiteController extends Controller
      */
     public function actionAjaxList(string $q = '', string $type = null)
     {
+        // Get all guardians
         if ($type === 'internshipGuardian') {
             $out['results'] = User::find()
-                ->select(['id' => 'user.id', 'text' => "CONCAT(guardian_profile.name, ' ', guardian_profile.surname)"])
-                ->joinWith('guardianProfile')
-                ->where(['OR', ['LIKE', 'guardian_profile.name', $q], ['LIKE', 'guardian_profile.surname', $q]])
+                ->select(['id' => 'user.id', 'text' => 'username'])
+                ->where(['LIKE', 'username', $q])
+                ->andWhere(['IS NOT', 'id_employer', null])
                 ->asArray()
                 ->limit(20)
                 ->all();

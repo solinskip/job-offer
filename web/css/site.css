@@ -256,9 +256,11 @@ li.first.disabled, li.last.disabled {
 .employer-profile-form .input-group-addon:first-child,
 .employee-profile-form .input-group-addon:first-child,
 .announcement-form .input-group-addon:first-child,
+.internship-diary-update .input-group-addon:first-child,
 .employer-profile-form.input-group-addon:nth-child(2),
 .employee-profile-form.input-group-addon:nth-child(2),
-.announcement-form.input-group-addon:nth-child(2) {
+.announcement-form.input-group-addon:nth-child(2),
+.internship-diary-update.input-group-addon:nth-child(2) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -266,16 +268,19 @@ li.first.disabled, li.last.disabled {
 .employer-profile-form .input-group-addon:last-child,
 .employee-profile-form .input-group-addon:last-child,
 .announcement-form .input-group-addon:last-child,
+.internship-diary-update .input-group-addon:last-child,
 .employer-profile-form .input-group-addon:nth-child(2),
 .employee-profile-form .input-group-addon:nth-child(2),
-.announcement-form .input-group-addon:nth-child(2) {
+.announcement-form .input-group-addon:nth-child(2),
+.internship-diary-update .input-group-addon:nth-child(2) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
 .employer-profile-form .input-group-addon,
 .employee-profile-form .input-group-addon,
-.announcement-form .input-group-addon {
+.announcement-form .input-group-addon,
+.internship-diary-update .input-group-addon {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
@@ -309,6 +314,7 @@ i {
     padding-top: 5px;
 }
 
-.select2-container {
+.select2-container,
+.internship-diary-update .form-group {
     padding-bottom: 9px;
 }

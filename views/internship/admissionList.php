@@ -35,7 +35,7 @@ $attributes = [
         'widgetClass' => Select2::class,
         'options' => static function (Internship $model) {
             return [
-                'initValueText' => isset($model->guardian) ? $model->guardian->guardianProfile->name . ' ' . $model->guardian->guardianProfile->surname : false,
+                'initValueText' => isset($model->guardian) ? $model->guardian->username : false,
                 'options' => ['placeholder' => 'Wybierz...'],
                 'pluginOptions' => [
                     'ajax' => [

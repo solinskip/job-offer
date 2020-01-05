@@ -4,10 +4,13 @@
 /* @var $searchModel \app\models\search\EmployeeProfileSearch */
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
 /* @var $model EmployeeProfile */
 
 use app\models\EmployeeProfile;
+use app\models\Internship;
 use app\models\Upload;
+use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -67,4 +70,46 @@ $this->title = 'Profil pracownika';
             </div>
         </div>
     </div>
+
+    <hr>
+
+    <? $gridColumn = [
+        ['class' => 'kartik\grid\SerialColumn'],
+        [
+            'attribute' => 'id_employer',
+            'format' => 'raw',
+            'value' => static function (Internship $model) {
+                return Html::a($model->employer->username, Url::to(['/employer/index', 'id' => $model->employer->employerProfile->id]));
+
+            }
+        ],
+        'announcement.start_date',
+        'announcement.end_date',
+        'announcement.position',
+        'guardian.username',
+        [
+            'class' => 'kartik\grid\ActionColumn',
+            'header' => 'Akcje',
+            'urlCreator' => static function ($action, Internship $model) {
+                    return Url::to(['/internship-diary/index', 'id_internship' => $model->id]);
+                },
+            'template' => '{view}',
+        ]
+    ]; ?>
+
+    <?= GridView::widget([
+        'id' => 'completed-internships',
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumn,
+        'resizableColumns' => false,
+        'hover' => true,
+        'condensed' => true,
+        'striped' => false,
+        'headerRowOptions' => ['class' => 'break-word'],
+        'panelTemplate' => '{panelHeading} {items} {pager}',
+        'panelHeadingTemplate' => '{title}',
+        'panel' => [
+            'heading' => '<i class="fas fa-list"></i> Odbyte staże'
+        ]
+    ]) ?>
 </div>
