@@ -1,10 +1,11 @@
 <?
 
-use app\models\Announcement;
 use kartik\field\FieldRange;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\search\AnnouncementSearch */
@@ -22,12 +23,20 @@ use yii\helpers\Html;
         <?= $form->field($model, 'name', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Podaj nazwę...']) ?>
         <?= $form->field($model, 'place', ['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true, 'placeholder' => 'Podaj miejsce...']) ?>
         <?= $form->field($model, 'position', ['options' => ['class' => 'col-md-3'],])->widget(Select2::class, [
-            'data' => Announcement::listOfPositions(),
             'options' => [
                 'placeholder' => 'Wybierz...'
             ],
+            'pluginOptions' => [
+                'ajax' => [
+                    'url' => Url::to(['announcement/ajax-list', 'type' => 'positions']),
+                    'dataType' => 'json',
+                    'data' => new JsExpression('function(params) { return {q:params.term}; }'),
+                ],
+                'allowClear' => true,
+            ],
             'hideSearch' => true
         ]) ?>
+
         <div class="col-md-6">
             <?= FieldRange::widget([
                 'form' => $form,

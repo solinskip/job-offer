@@ -18,7 +18,7 @@ $this->title = 'Profil opiekuna';
         <div class="col-md-8"><h1><?= Html::encode($this->title) ?></h1></div>
         <? if ($model->isOwnerProfile) : ?>
             <div class="col-md-4 text-right mt-2">
-                <?= Html::a('<i class="fas fa-user-edit pr-1"></i>Edycja', Url::to(['/employee/update']), [
+                <?= Html::a('<i class="fas fa-user-edit pr-1"></i>Edycja', Url::to(['/guardian/update']), [
                     'class' => 'btn modal-sub'
                 ]) ?>
                 <?= Html::a('<i class="fas fa-lock pr-1"></i>Zmiana hasła', false, [
@@ -51,16 +51,6 @@ $this->title = 'Profil opiekuna';
                 <div class="col-md-8"><span class="badge badge-info" style="font-size: 20px"><?= $model->user->username ?></span></div>
                 <div class="col-md-4"><?= $model->getAttributeLabel('email') ?>:</div>
                 <div class="col-md-8"><?= $model->email ?></div>
-                <div class="col-md-4"><?= $model->getAttributeLabel('education') ?>:</div>
-                <div class="col-md-8"><?= $model->education ?></div>
-                <div class="col-md-4"><?= $model->getAttributeLabel('birth_date') ?>:</div>
-                <div class="col-md-8"><?= $model->birth_date ?></div>
-                <div class="col-md-4"><?= $model->getAttributeLabel('courses') ?>:</div>
-                <div class="col-md-8"><?= $model->courses ?></div>
-                <div class="col-md-4"><?= $model->getAttributeLabel('experience') ?>:</div>
-                <div class="col-md-8"><?= $model->experience ?></div>
-                <div class="col-md-4"><?= $model->getAttributeLabel('information') ?>:</div>
-                <div class="col-md-8"><?= $model->information ?></div>
                 <div class="col-md-4"><?= $model->getAttributeLabel('phone') ?>:</div>
                 <div class="col-md-8"><?= $model->phone ?></div>
             </div>

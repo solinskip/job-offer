@@ -7,6 +7,7 @@ use app\models\Internship;
 use app\models\search\InternshipSearch;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -29,7 +30,7 @@ class InternshipController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['willing-list', 'admission-list'],
+                        'actions' => ['employer', 'guardian', 'willing-list', 'admission-list', 'sent-to-employer'],
                         'roles' => ['@']
                     ],
                     [
@@ -38,6 +39,35 @@ class InternshipController extends Controller
                 ]
             ]
         ];
+    }
+
+    public function actionGuardian()
+    {
+        $searchModel = new InternshipSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere([
+            'id_guardian' => Yii::$app->user->identity->id,
+            'accepted' => 1
+        ]);
+
+        return $this->render('guardian', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
+    public function actionEmployer()
+    {
+        $searchModel = new InternshipSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere([
+            'internship.id_employer' => Yii::$app->user->identity->id,
+            'accepted' => 1,
+            'isSent' => 1
+        ]);
+
+        return $this->render('guardian', [
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**
@@ -82,6 +112,20 @@ class InternshipController extends Controller
         return $this->render('admissionList', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSentToEmployer($id_internship)
+    {
+        $model = $this->findModel($id_internship);
+
+        if ($model->isSent === 0) {
+            $model->isSent = 1;
+            if ($model->save()){
+                Yii::$app->session->setFlash('success', 'Dziennik został wysłany pomyślnie.');
+
+                return $this->redirect(Url::to(['/internship-diary/index', 'id_internship' => $id_internship]));
+            }
+        }
     }
 
     /**

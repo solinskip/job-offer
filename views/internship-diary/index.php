@@ -4,7 +4,8 @@
 /* @var $searchModel app\models\search\InternshipDiarySearch */
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $id_internship int */
+
+/* @var $model \app\models\Internship */
 
 use kartik\grid\GridView;
 use yii\helpers\Html;
@@ -17,7 +18,18 @@ $this->title = 'Dziennik stażu';
     <div class="row">
         <div class="col-md-8"><h1><?= Html::encode($this->title) ?></h1></div>
         <div class="col-md-4 text-right">
-            <?= Html::a('<i class="fas fa-edit"></i> Aktualizuj', Url::to(['update', 'id_internship' => $id_internship]), ['class' => 'btn modal-sub']) ?>
+            <? if ($model->isOwner || $model->isGuardianInternship) : ?>
+                <?= Html::a('<i class="fas fa-edit"></i> Aktualizuj', Url::to(['update', 'id_internship' => $model->id]), ['class' => 'btn modal-sub']) ?>
+            <? endif; ?>
+            <? if ($model->isGuardianInternship) : ?>
+                <?= Html::a('<i class="fas fa-trash-alt"></i> Wyślij', ['/internship/sent-to-employer', 'id_internship' => $model->id], [
+                    'class' => 'btn btn-primary',
+                    'data' => [
+                        'confirm' => 'Czy na pewno chcesz wysłać dziennik?',
+                        'method' => 'post'
+                    ]
+                ]) ?>
+            <? endif; ?>
         </div>
     </div>
     <hr class="mt-1">

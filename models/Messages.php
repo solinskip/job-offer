@@ -107,10 +107,9 @@ class Messages extends \yii\db\ActiveRecord
 
     public static function urlMessages()
     {
-        if (Yii::$app->user->isGuest) {
-            return false;
-        }
-        if (Yii::$app->user->identity->account_type === User::ADMINISTRATOR) {
+        if (Yii::$app->user->isGuest
+            || Yii::$app->user->identity->account_type === User::ADMINISTRATOR
+            || Yii::$app->user->identity->account_type === User::GUARDIAN) {
             return false;
         }
         if (Yii::$app->user->identity->account_type === User::EMPLOYER) {
@@ -142,7 +141,7 @@ class Messages extends \yii\db\ActiveRecord
     public function upload()
     {
         $attachment = UploadedFile::getInstance($this, 'attachment');
-       
+
         if ($attachment) {
             // Create path for save attachment
             $path = Yii::getAlias('@storage') . '/attachments/' . Yii::$app->user->id . '-' . $this->id;

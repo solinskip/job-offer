@@ -30,7 +30,7 @@ class AnnouncementController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'ajax-list'],
                         'roles' => ['@']
                     ],
                     [
@@ -127,6 +127,29 @@ class AnnouncementController extends Controller
         return $this->render('update', [
             'model' => $model
         ]);
+    }
+
+    /**
+     * Finds the data for ajax select lists
+     *
+     * @param string $q
+     * @param string|null $type
+     * @return Response
+     */
+    public function actionAjaxList(string $q = '', string $type = null)
+    {
+        // Get all guardians
+        if ($type === 'positions') {
+            $out['results'] = Announcement::find()
+                ->select(['id' => 'position', 'text' => 'position'])
+                ->where(['LIKE', 'position', $q])
+                ->asArray()
+                ->groupBy('position')
+                ->limit(20)
+                ->all();
+        }
+
+        return $this->asJson($out);
     }
 
     /**

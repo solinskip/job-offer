@@ -50,8 +50,10 @@ use yii\helpers\Url;
         </div>
         <div class="col-md-8">
             <div class="row">
-                <?= $form->field($model, 'name', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Imię']) ?>
-                <?= $form->field($model, 'surname', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Nazwisko']) ?>
+                <?= $form->field($model, 'name', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'placeholder' => 'Imię']) ?>
+                <?= $form->field($model, 'surname', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'placeholder' => 'Nazwisko']) ?>
+                <?= $form->field($model, 'index_number', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'placeholder' => 'Nr. indexu']) ?>
+                <?= $form->field($model, 'symbol_of_year', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'placeholder' => 'Symbol roku']) ?>
                 <?= $form->field($model, 'birth_date', ['options' => ['class' => 'col-md-12']])->widget(DateControl::class, [
                     'saveFormat' => 'php:Y-m-d'
                 ]) ?>

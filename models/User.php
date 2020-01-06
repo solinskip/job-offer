@@ -17,7 +17,7 @@ use yii\web\IdentityInterface;
  * @property int $account_type, 0 => administrator, 1 => employer, 2 => employee, 3 => guardian
  * @property string $password_hash
  * @property int $created_at
- * @property int $modified_at
+ * @property int $updated_at
  * @property int $logged_at
  *
  * @property User $idEmployer
@@ -27,7 +27,7 @@ use yii\web\IdentityInterface;
  * @property bool $isAdministrator
  * @property bool $isEmployer
  * @property bool $isEmployee
-
+ * @property bool $isGuardian
  */
 class User extends ActiveRecord implements IdentityInterface
 {

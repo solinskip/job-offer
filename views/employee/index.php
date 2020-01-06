@@ -53,6 +53,10 @@ $this->title = 'Profil pracownika';
                 </div>
                 <div class="col-md-4">Nazwa użytkownika:</div>
                 <div class="col-md-8"><span class="badge badge-info" style="font-size: 20px"><?= $model->user->username ?></span></div>
+                <div class="col-md-4"><?= $model->getAttributeLabel('index_number') ?>:</div>
+                <div class="col-md-8"><?= $model->index_number ?></div>
+                <div class="col-md-4"><?= $model->getAttributeLabel('symbol_of_year') ?>:</div>
+                <div class="col-md-8"><?= $model->symbol_of_year ?></div>
                 <div class="col-md-4"><?= $model->getAttributeLabel('email') ?>:</div>
                 <div class="col-md-8"><?= $model->email ?></div>
                 <div class="col-md-4"><?= $model->getAttributeLabel('education') ?>:</div>

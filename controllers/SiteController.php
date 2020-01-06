@@ -116,7 +116,7 @@ class SiteController extends Controller
         $model = new ResetPassword();
 
         if ($model->load(Yii::$app->request->post()) && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'Zmiana hasa przebiegła pomyślnie.');
+            Yii::$app->session->setFlash('success', 'Zmiana hasła przebiegła pomyślnie.');
 
             return $this->redirect(Yii::$app->request->referrer);
         }

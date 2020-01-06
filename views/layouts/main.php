@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\models\Internship;
 use app\models\Messages;
 use app\models\User;
 use app\widgets\Alert;
@@ -81,7 +82,14 @@ AppAsset::register($this);
                                         'linkOptions' => [
                                             'class' => 'text-light',
                                         ],
-                                        'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->identity->isAdministrator
+                                        'visible' => !Yii::$app->user->isGuest && (Yii::$app->user->identity->isEmployee || Yii::$app->user->identity->isEmployer)
+                                    ],
+                                    [
+                                        'label' => '<i class="fas fa-list"></i>&nbsp;</i>Staże', 'url' => Internship::urlInternship(), 'encode' => false,
+                                        'linkOptions' => [
+                                            'class' => 'text-light',
+                                        ],
+                                        'visible' => !Yii::$app->user->isGuest && (Yii::$app->user->identity->isGuardian || Yii::$app->user->identity->isEmployer)
                                     ],
                                     [
                                         'label' => '<i class="fas fa-bullhorn"></i>&nbsp;</i>Ogłoszenia', 'url' => ['announcement/index'], 'encode' => false,

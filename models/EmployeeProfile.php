@@ -11,6 +11,8 @@ use yii\web\UploadedFile;
  *
  * @property int $id
  * @property int $id_user
+ * @property int $index_number
+ * @property int $symbol_of_year
  * @property string $name
  * @property string $surname
  * @property string $email
@@ -44,7 +46,7 @@ class EmployeeProfile extends \yii\db\ActiveRecord
      */
     public function scenarios()
     {
-        $allAttributes = ['id', 'id_user', 'name', 'surname', 'email', 'education', 'birth_date', 'courses', 'experience', 'phone', 'information', 'profile_image'];
+        $allAttributes = ['id', 'id_user', 'index_number', 'symbol_of_year', 'name', 'surname', 'email', 'education', 'birth_date', 'courses', 'experience', 'phone', 'information', 'profile_image'];
         return [
             self::SCENARIO_SIGNUP => $allAttributes,
             self::SCENARIO_UPDATE => $allAttributes
@@ -58,7 +60,7 @@ class EmployeeProfile extends \yii\db\ActiveRecord
     {
         return [
             self::SCENARIO_SIGNUP => ['id_user'],
-            self::SCENARIO_UPDATE => ['id_user', 'name', 'surname', 'email', 'birth_date', 'phone']
+            self::SCENARIO_UPDATE => ['id_user', 'index_number', 'symbol_of_year', 'name', 'surname', 'email', 'birth_date', 'phone']
         ];
     }
 
@@ -70,10 +72,10 @@ class EmployeeProfile extends \yii\db\ActiveRecord
         return [
             [$this->required()[$this->scenario], 'required'],
 
-            [['id_user', 'phone'], 'integer'],
-            [['education', 'courses', 'experience', 'information'], 'string'],
+            [['id_user', 'phone', 'index_number'], 'integer'],
+            [['education', 'courses', 'experience', 'information', 'symbol_of_year'], 'string'],
             [['birth_date'], 'safe'],
-            [['name', 'surname', 'email'], 'string', 'max' => 50],
+            [['name', 'surname', 'email', 'symbol_of_year'], 'string', 'max' => 50],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
 
             [['profile_image'], 'file', 'skipOnEmpty' => true]
@@ -88,6 +90,8 @@ class EmployeeProfile extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_user' => 'Id User',
+            'index_number' => 'Nr. indexu',
+            'symbol_of_year' => 'Symbol roku',
             'name' => 'Imię',
             'surname' => 'Nazwisko',
             'email' => 'Email',

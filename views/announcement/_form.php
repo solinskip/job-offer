@@ -19,12 +19,8 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <?= $form->field($model, 'name', ['options' => ['class' => 'col-md-12']])->textInput(['maxlength' => true, 'placeholder' => 'Podaj nazwę...']) ?>
         <?= $form->field($model, 'place', ['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true, 'placeholder' => 'Podaj miejsce...']) ?>
-        <?= $form->field($model, 'position', ['options' => ['class' => 'col-md-4'],])->widget(Select2::class, [
-            'data' => Announcement::listOfPositions(),
-            'options' => [
-                'placeholder' => 'Wybierz...'
-            ]
-        ]) ?>
+        <?= $form->field($model, 'position', ['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true, 'placeholder' => 'Podaj stanowisko...']) ?>
+
         <?= $form->field($model, 'salary', ['options' => ['class' => 'col-md-4']])->widget(TouchSpin::class, [
             'options' => [
                 'placeholder' => 'Podaj wynagrodzenie...'

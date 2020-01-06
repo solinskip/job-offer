@@ -21,6 +21,8 @@ use yii\web\UploadedFile;
  */
 class GuardianProfile extends \yii\db\ActiveRecord
 {
+    public $profile_image;
+
     public const SCENARIO_SIGNUP = 'signup';
     public const SCENARIO_UPDATE = 'update';
 
@@ -53,11 +55,14 @@ class GuardianProfile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user'], 'required'],
+            [$this->required()[$this->scenario], 'required'],
+
             [['phone'], 'integer'],
             [['name', 'surname', 'email'], 'string', 'max' => 50],
 
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
+
+            [['profile_image'], 'file', 'skipOnEmpty' => true]
         ];
     }
 
@@ -79,8 +84,9 @@ class GuardianProfile extends \yii\db\ActiveRecord
             'id_user' => 'Id User',
             'name' => 'Imię',
             'surname' => 'Nazwisko',
-            'email' => 'Nazwisko',
+            'email' => 'Email',
             'phone' => 'Telefon kom.',
+            'profile_image' => 'Zdjęcie profilowe'
         ];
     }
 
@@ -117,5 +123,15 @@ class GuardianProfile extends \yii\db\ActiveRecord
         }
         // Return true if nothing to upload
         return true;
+    }
+
+    /**
+     * Checks that current logged user is viewer his own profile
+     *
+     * @return bool
+     */
+    public function getIsOwnerProfile()
+    {
+        return Yii::$app->user->identity->account_type === User::GUARDIAN && Yii::$app->user->identity->guardianProfile->id === $this->id;
     }
 }

@@ -41,17 +41,25 @@ class GuardianController extends Controller
     }
 
     /**
-     * Display a current login guardian profile
+     * Display a current logged or selected employee profile
      *
+     * @param int $id
      * @return string
+     * @throws NotFoundHttpException
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
-        return $this->render('index');
+        $id = $id ?? Yii::$app->user->identity->guardianProfile->id;
+
+        $model = $this->findModel($id);
+
+        return $this->render('index', [
+            'model' => $model
+        ]);
     }
 
     /**
-     * Updates an existing GuardianProfile model.
+     * Updates an existing EmployeeProfile model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
      * @return string|\yii\web\Response

@@ -30,7 +30,18 @@ class InternshipDiaryController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'update', 'add-internship-diary'],
+                        'actions' => ['index', 'add-internship-diary'],
+                        'roles' => ['@']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'matchCallback' => static function () {
+                            // Block access if current logged user is not owner of internship
+                            $modelInternship = Internship::findOne(['id' => Yii::$app->request->get('id_internship')]);
+
+                            return $modelInternship->isOwner || $modelInternship->isGuardianInternship;
+                        },
                         'roles' => ['@']
                     ],
                     [
@@ -56,7 +67,7 @@ class InternshipDiaryController extends Controller
         ]);
 
         return $this->render('index', [
-            'id_internship' => $id_internship,
+            'model' => Internship::findOne(['id' => $id_internship]),
             'dataProvider' => $dataProvider
         ]);
     }

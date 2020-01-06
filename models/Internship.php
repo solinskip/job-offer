@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use Yii;
+use yii\helpers\Url;
+
 /**
  * This is the base model class for table "internship".
  *
@@ -12,6 +15,7 @@ namespace app\models;
  * @property integer $id_announcement
  * @property integer $id_messages
  * @property integer $accepted
+ * @property integer $isSent
  *
  * @property User $employee
  * @property User $employer
@@ -20,6 +24,8 @@ namespace app\models;
  * @property InternshipDiary $internshipDiaries
  * @property Messages $messages
  * @property string $acceptedHtml
+ * @property bool $isOwner
+ * @property bool $isGuardianInternship
  */
 class Internship extends \yii\db\ActiveRecord
 {
@@ -32,7 +38,8 @@ class Internship extends \yii\db\ActiveRecord
     {
         return [
             [['id_employee', 'id_employer', 'id_announcement', 'id_messages'], 'required'],
-            [['id', 'id_employee', 'id_employer', 'id_guardian', 'id_announcement', 'id_messages', 'accepted'], 'integer']
+            ['isSent', 'default', 'value' => 0],
+            [['id', 'id_employee', 'id_employer', 'id_guardian', 'id_announcement', 'id_messages', 'accepted', 'isSent'], 'integer']
         ];
     }
 
@@ -57,6 +64,7 @@ class Internship extends \yii\db\ActiveRecord
             'id_announcement' => 'Ogłoszenie',
             'id_messages' => 'Wiadomość',
             'accepted' => 'Przyjęty',
+            'isSent' => 'Wysłany',
         ];
     }
 
@@ -106,6 +114,49 @@ class Internship extends \yii\db\ActiveRecord
     public function getMessages()
     {
         return $this->hasOne(Messages::class, ['id' => 'id_messages']);
+    }
+
+    /**
+     * Checks that current logged user is owner internship
+     *
+     * @return bool
+     */
+    public function getIsOwner()
+    {
+        return $this->id_employee === Yii::$app->user->identity->id;
+    }
+
+    /**
+     * Checks that current logged user is owner internship
+     *
+     * @return bool
+     */
+    public function getIsGuardianInternship()
+    {
+        return $this->id_guardian === Yii::$app->user->identity->id;
+    }
+
+    /**
+     * Urls to internship depends on account type of user
+     *
+     * @return bool|string
+     * @throws \yii\base\Exception
+     */
+    public static function urlInternship()
+    {
+        if (Yii::$app->user->isGuest
+            || Yii::$app->user->identity->account_type === User::ADMINISTRATOR
+            || Yii::$app->user->identity->account_type === User::EMPLOYEE) {
+            return false;
+        }
+        if (Yii::$app->user->identity->account_type === User::EMPLOYER) {
+            return Url::to(['internship/employer']);
+        }
+        if (Yii::$app->user->identity->account_type === User::GUARDIAN) {
+            return Url::to(['internship/guardian']);
+        }
+
+        throw new \yii\base\Exception('Account type not allowed');
     }
 
     /**

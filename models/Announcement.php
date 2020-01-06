@@ -106,20 +106,4 @@ class Announcement extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'created_by']);
     }
-
-    /**
-     * List of available positions
-     *
-     * @return array
-     */
-    public static function listOfPositions()
-    {
-        return [
-            'Programista' => 'Programista',
-            'Prawnik' => 'Prawnik',
-            'Magazynier' => 'Magazynier',
-            'Kierowca' => 'Kierowca',
-            'Kierownik' => 'Kierownik'
-        ];
-    }
 }
