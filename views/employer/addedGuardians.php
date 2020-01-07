@@ -1,5 +1,6 @@
 <?
 
+use app\models\GuardianProfile;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -30,20 +31,18 @@ $this->title = 'Dodani opiekunowie';
         'id' => 'added-guardians',
         'dataProvider' => $dataProvider,
         'columns' => [
-            'user.username',
+            [
+                'attribute' => 'user.username',
+                'value' => static function (GuardianProfile $model) {
+                    return Html::a($model->user->username, Url::to(['/guardian/index', 'id' => $model->id]));
+
+                },
+                'format' => 'raw',
+            ],
             'name',
             'surname',
             'email',
-            'phone',
-            [
-                'class' => 'kartik\grid\ActionColumn',
-                'width' => '85px',
-                'header' => 'Akcje',
-                'template' => '{view}',
-                'urlCreator' => static function ($action, /** @noinspection PhpUnusedParameterInspection */ $model, $key) {
-                    return Url::to(['/guardian/' . $action, 'id' => $key]);
-                }
-            ]
+            'phone'
         ],
         'resizableColumns' => false,
         'hover' => true,

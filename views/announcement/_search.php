@@ -3,6 +3,7 @@
 use kartik\field\FieldRange;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
+use kartik\widgets\TouchSpin;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\JsExpression;
@@ -30,11 +31,10 @@ use yii\web\JsExpression;
                 'ajax' => [
                     'url' => Url::to(['announcement/ajax-list', 'type' => 'positions']),
                     'dataType' => 'json',
-                    'data' => new JsExpression('function(params) { return {q:params.term}; }'),
+                    'data' => new JsExpression('function(params) { return {q:params.term}; }')
                 ],
-                'allowClear' => true,
-            ],
-            'hideSearch' => true
+                'allowClear' => true
+            ]
         ]) ?>
 
         <div class="col-md-6">
@@ -46,7 +46,7 @@ use yii\web\JsExpression;
                 'attribute2' => 'toSalary',
                 'separator' => '<i class="fas fa-arrows-alt-h px-2"></i>',
                 'type' => FieldRange::INPUT_WIDGET,
-                'widgetClass' => \kartik\widgets\TouchSpin::class,
+                'widgetClass' => TouchSpin::class,
                 'widgetOptions1' => [
                     'pluginOptions' => [
                         'min' => 0,
@@ -67,7 +67,6 @@ use yii\web\JsExpression;
 
     <div class="form-group text-right mt-4">
         <?= Html::submitButton('Wyszukaj', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Wyczyść', ['class' => 'btn btn-default']) ?>
     </div>
 
     <? ActiveForm::end(); ?>

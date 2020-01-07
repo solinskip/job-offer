@@ -82,6 +82,8 @@ $attributes = [
     ]
 ]) ?>
 
+<hr>
+
     <div class="form-group text-center pt-2">
         <?= Html::submitButton('Zapisz', ['class' => 'btn modal-sub']) ?>
     </div>
