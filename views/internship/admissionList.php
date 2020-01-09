@@ -39,7 +39,7 @@ $attributes = [
                 'options' => ['placeholder' => 'Wybierz...'],
                 'pluginOptions' => [
                     'ajax' => [
-                        'url' => Url::to(['site/ajax-list', 'type' => 'internshipGuardian']),
+                        'url' => Url::to(['site/ajax-list', 'type' => 'internshipGuardian', 'id_employer' => $model->id_employer]),
                         'dataType' => 'json',
                         'data' => new JsExpression('function(params) { return {q:params.term}; }')
                     ],

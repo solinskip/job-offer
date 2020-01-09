@@ -188,16 +188,17 @@ class SiteController extends Controller
      *
      * @param string $q
      * @param string|null $type
+     * @param string|null $id_employer
      * @return Response
      */
-    public function actionAjaxList(string $q = '', string $type = null)
+    public function actionAjaxList(string $q = '', string $type = null, $id_employer = null)
     {
         // Get all guardians
         if ($type === 'internshipGuardian') {
             $out['results'] = User::find()
                 ->select(['id' => 'user.id', 'text' => 'username'])
                 ->where(['LIKE', 'username', $q])
-                ->andWhere(['IS NOT', 'id_employer', null])
+                ->andWhere(['id_employer' => $id_employer])
                 ->asArray()
                 ->limit(20)
                 ->all();
