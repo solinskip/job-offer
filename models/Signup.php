@@ -15,13 +15,15 @@ class Signup extends Model
     public $username;
     public $account_type;
     public $password;
+    public $policy1;
+    public $policy2;
 
     /**
      * Scenarios from Msa are inherited to relations
      */
     public function scenarios()
     {
-        $allAttributes = ['username', 'account_type', 'password'];
+        $allAttributes = ['username', 'account_type', 'password', 'policy1', 'policy2'];
         return [
             self::SCENARIO_SIGNUP => $allAttributes,
             self::SCENARIO_GUARDIAN => $allAttributes
@@ -34,7 +36,7 @@ class Signup extends Model
     public function required()
     {
         return [
-            self::SCENARIO_SIGNUP => ['username', 'account_type', 'password'],
+            self::SCENARIO_SIGNUP => ['username', 'account_type', 'password', 'policy1', 'policy2'],
             self::SCENARIO_GUARDIAN => ['username', 'password']
         ];
     }
@@ -46,8 +48,9 @@ class Signup extends Model
             [$this->required()[$this->scenario], 'required'],
             [['username'], 'unique', 'targetClass' => User::class, 'message' => 'Podana nazwa użytkownika jest już zajętą.'],
 
-            [['account_type'], 'integer'],
-            [['account_type'], 'filter', 'filter' => 'intval'],
+            [['account_type', 'policy1', 'policy2'], 'integer'],
+            [['policy1', 'policy2'], 'required', 'on' => 'signup', 'requiredValue' => 1, 'message' => 'Pole wymagane.'],
+            [['account_type', 'policy1', 'policy2'], 'filter', 'filter' => 'intval'],
 
             [['username'], 'string', 'max' => 50],
             [['username'], 'trim'],
@@ -65,7 +68,7 @@ class Signup extends Model
         return [
             'username' => 'Nazwa użytkownika',
             'account_type' => 'Typ konta',
-            'password' => 'Hasło',
+            'password' => 'Hasło'
         ];
     }
 

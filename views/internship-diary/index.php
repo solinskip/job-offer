@@ -35,9 +35,21 @@ $this->title = 'Dziennik stażu';
     <hr class="mt-1">
     <? $gridColumn = [
         ['class' => 'kartik\grid\SerialColumn'],
-        'description:ntext',
-        'date',
-        'working_hours'
+        [
+            'attribute' => 'description'
+        ],
+        [
+            'attribute' => 'date',
+            'pageSummary' => static function ($summary, $data) {
+                return 'Zakres: ' . min($data) . ' - ' . max($data);
+            }
+        ],
+        [
+            'attribute' => 'working_hours',
+            'pageSummary' => static function ($summary) {
+                return "Suma: {$summary}";
+            }
+        ]
     ] ?>
 
     <?= GridView::widget([
@@ -45,6 +57,7 @@ $this->title = 'Dziennik stażu';
         'dataProvider' => $dataProvider,
         'columns' => $gridColumn,
         'resizableColumns' => false,
+        'showPageSummary' => true,
         'hover' => true,
         'condensed' => true,
         'striped' => false,

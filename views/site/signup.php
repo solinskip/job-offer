@@ -20,11 +20,13 @@ use yii\widgets\Pjax;
 
         <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
+        <?= $form->field($model, 'password')->passwordInput(['autocomplete' => 'new-password']) ?>
+
         <? if ($model->scenario === 'signup') : ?>
             <?= $form->field($model, 'account_type')->radioList([1 => 'Pracodawca', 2 => 'Pracownik'], ['inline' => true]) ?>
+            <?= $form->field($model, 'policy1')->checkbox(['label' => 'Akceptuje warunki korzystania ze strony.']) ?>
+            <?= $form->field($model, 'policy2')->checkbox(['label' => 'Zgadzam się na przetwarzanie moich danych osobowych.']) ?>
         <? endif; ?>
-
-        <?= $form->field($model, 'password')->passwordInput(['autocomplete' => 'new-password']) ?>
 
         <hr>
 
@@ -35,3 +37,8 @@ use yii\widgets\Pjax;
         <? Pjax::end() ?>
     </div>
 </div>
+<style>
+    .form-group {
+        margin: 0;
+    }
+</style>
