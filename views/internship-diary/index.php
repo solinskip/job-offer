@@ -47,7 +47,7 @@ $this->title = 'Dziennik stażu';
         [
             'attribute' => 'working_hours',
             'pageSummary' => static function ($summary) {
-                return "Suma: {$summary}";
+                return "Suma: {$summary} godz.";
             }
         ]
     ] ?>
